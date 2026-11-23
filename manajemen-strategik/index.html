@@ -162,7 +162,7 @@ h3.h3{margin:0;font-size:15px;font-weight:700}
   display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:0 12px;border-radius:14px;
   background:var(--glass-hi);border:1px solid var(--edge);font-size:12px;font-weight:600;
 }
-.qtext{margin:0;font-size:17px;font-weight:700;line-height:1.4;text-wrap:pretty}
+.qtext{margin:0;font-size:17px;font-weight:700;line-height:1.4;text-wrap:pretty;white-space:pre-line}
 .opts{display:flex;flex-direction:column;gap:10px}
 .opt{
   display:flex;align-items:center;gap:12px;width:100%;text-align:left;min-height:52px;padding:12px 14px;border-radius:18px;
@@ -240,64 +240,981 @@ h3.h3{margin:0;font-size:15px;font-weight:700}
 }
 .nb .n{font-size:15px;font-weight:800}
 .nb .l{font-size:12px;font-weight:700;color:var(--ink-2)}
-.nb.done{background:var(--pink);border-color:var(--pink-line)}
-.nb.now{border:2.5px solid var(--pink-line)}
+.nb.done{background:var(--pink);border-color:var(--pink-line);color:var(--ink)}
+.nb.done .l{color:var(--ink)}
+.chip-ico{padding:0;width:36px;justify-content:center}
+.chip-ico svg{display:block}
+.cdisp{border-radius:18px;padding:12px 16px;background:rgba(255,255,255,.7);border:1px solid var(--edge);display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;gap:2px;min-height:84px;overflow:hidden}
+.cdisp .ce{font-size:13px;color:var(--ink-2);min-height:20px;max-width:100%;white-space:nowrap;overflow:hidden}
+.cdisp .cd{font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.15;max-width:100%;white-space:nowrap;overflow:hidden}
+.ckeys{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.ck{height:52px;border-radius:16px;border:1px solid var(--edge);background:var(--glass-hi);color:var(--ink);font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0;touch-action:manipulation;box-shadow:0 4px 12px rgba(214,100,145,.05), inset 0 1px 0 rgba(255,255,255,.9)}
+.ck svg{display:block}
+.ck.fn{background:rgba(224,123,163,.18)}
+.ck.op{background:linear-gradient(180deg,var(--dark-1),var(--dark-2));color:var(--ink);border-color:rgba(255,255,255,.18)}
+.ck:active{transform:scale(.96)}
+.nb.bad{background:rgba(255,255,255,.9);border:2px dashed var(--pink-line)}
+.sheet-h h2.h2{font-size:19px}
+.nb.now{border:3px solid var(--pink-line);box-shadow:0 0 0 2px rgba(255,255,255,.9)}
+.nb.done.now{box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--pink-line)}
+.confirm{border-radius:18px;padding:14px;background:rgba(255,255,255,.9);border:2px solid var(--pink-line);display:flex;flex-direction:column;gap:10px}
+.confirm p{margin:0;line-height:1.5}
+ol.rules,ul.rules{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;line-height:1.5}
 
-/* dock */
-#dock{
-  position:fixed;bottom:0;left:0;right:0;z-index:30;
-  padding:10px max(16px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
-  background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(20px) saturate(140%);backdrop-filter:blur(20px) saturate(140%);
-  border-top:1px solid var(--edge);
+/* hasil */
+.score{font-size:64px;font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.score small{font-size:20px;font-weight:700;color:var(--ink-2);letter-spacing:0}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.two .glass{border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:2px}
+.two b{font-size:26px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+.two span{font-size:12px;color:var(--ink-2)}
+
+/* riwayat */
+.hist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.hist li{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;background:var(--glass-hi);border:1px solid var(--edge);
 }
-.dock-inner{max-width:520px;margin:0 auto;display:flex;gap:8px}
-.dock-inner .btn{flex:1}
+.hist .hn{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.hist .hn b{font-size:13px}
+.hist .hn span{font-size:12px;color:var(--ink-2)}
+.hist .nv{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+/* penguasaan */
+.mast,.qlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.mrow{display:flex;flex-direction:column;gap:8px;padding:12px 14px;border-radius:18px;background:var(--glass-hi);border:1px solid var(--edge)}
+.mtop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.mt{font-weight:700;font-size:14px;line-height:1.35;min-width:0}
+.mbot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pill{
+  flex:none;display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:12px;
+  font-size:11px;font-weight:700;white-space:nowrap;border:1.5px solid var(--pink-line);background:#fff;color:var(--ink);
+}
+.pill-kuasai{background:var(--pink);color:var(--ink)}
+.pill-belum{border-style:dashed}
+.pill-data{border-color:rgba(224,123,163,.6);color:var(--ink-2);font-weight:600}
+.qlist li{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:18px;background:var(--glass-hi);border:1px solid var(--edge)}
+.qt{font-weight:600;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.qm{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+textarea{
+  width:100%;min-height:96px;resize:vertical;padding:12px;border-radius:16px;border:1px solid var(--edge);
+  background:rgba(255,255,255,.85);line-height:1.4;
+}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.filebtn:focus-within{outline:2px solid var(--pink-line);outline-offset:2px}
+.empty{margin:0;padding:18px 8px;text-align:center;color:var(--ink-2);line-height:1.5}
 
-/* welcome */
-.wel{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center}
-.wel-blur{position:absolute;inset:0;background:rgba(240,160,195,.55);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
-.wel-body{position:relative;text-align:center;padding:32px 24px;max-width:340px}
-.wel-t{margin:16px 0 24px;font-size:28px;font-weight:800;letter-spacing:-.03em}
-.wel-btn{min-width:180px}
-.wel-body.out{opacity:0;transform:scale(.92);transition:opacity .3s, transform .3s}
-.wel.fade{opacity:0;transition:opacity .26s}
+/* grafik */
+.chart{display:block;width:100%;height:auto}
+.chart .gl{stroke:rgba(224,123,163,.25);stroke-width:1}
+.chart text{font-family:var(--font);font-size:10px;fill:var(--ink-2)}
+.chart .ln{fill:none;stroke:var(--pink-line);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.chart .pt{fill:#fff;stroke:var(--pink-line);stroke-width:2.5}
+.chart .pe{fill:var(--pink-line);stroke:#fff;stroke-width:2}
+.chart .tip{fill:var(--pink-2)}
+.chart text.tipt{fill:var(--ink);font-weight:700;font-size:11px}
+
+/* navigasi bawah */
+.dock{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;
+  padding-left:max(14px, env(safe-area-inset-left, 0px));
+  padding-right:max(14px, env(safe-area-inset-right, 0px));
+  padding-bottom:calc(14px + env(safe-area-inset-bottom, 0px));
+  pointer-events:none;
+}
+.dock-bar{
+  pointer-events:auto;max-width:520px;margin:0 auto;height:68px;padding:0 8px;border-radius:32px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,.62);
+  -webkit-backdrop-filter:blur(24px) saturate(130%);backdrop-filter:blur(24px) saturate(130%);
+  border:1px solid rgba(255,255,255,.85);
+  box-shadow:0 12px 32px rgba(214,100,145,.14), inset 0 1px 0 rgba(255,255,255,.95);
+}
+.dock button{
+  flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:54px;margin:0 2px;padding:0;
+  border:0;border-radius:24px;background:transparent;color:var(--ink-2);font-size:11px;font-weight:600;
+}
+.dock button[aria-current="page"]{background:var(--pink);color:var(--ink);font-weight:700}
 
 /* toast */
-.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:60;padding:12px 20px;border-radius:16px;background:rgba(90,26,56,.92);color:#fff;font-size:13px;font-weight:600;max-width:90%;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.toast{
+  position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom, 0px));transform:translate(-50%,12px);z-index:30;
+  max-width:min(440px, calc(100vw - 32px));padding:12px 18px;border-radius:18px;background:var(--pink-2);color:var(--ink);
+  font-weight:600;font-size:13px;line-height:1.4;text-align:center;opacity:0;pointer-events:none;
+  transition:opacity .2s, transform .2s;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
 
-/* util */
-[hidden]{display:none!important}
+.wel{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
+  padding:24px max(24px, env(safe-area-inset-right, 0px)) 24px max(24px, env(safe-area-inset-left, 0px))}
+.wel.fade{opacity:0;transition:opacity .25s ease}
+.wel-blur{position:absolute;inset:0;background:rgba(240,240,240,.42);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.wel-body{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center;
+  animation:welIn .7s cubic-bezier(.22,1,.36,1) backwards;transition:opacity .35s ease, transform .35s ease}
+.wel-body.out{opacity:0;transform:scale(.96);pointer-events:none}
+.wel-t{margin:0;font-size:36px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.wel-btn{min-height:56px;padding:0 36px;font-size:17px;border-radius:28px}
+@keyframes welIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (max-width:360px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .score{font-size:52px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}
+
 </style>
-</head>
-<body>
 <div class="bg" aria-hidden="true"></div>
+
 <div class="app">
   <header class="brand">
     <div class="logo" aria-hidden="true">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/></svg>
     </div>
     <div>
       <div class="brand-name">QuizLearn</div>
-      <div class="brand-sub">Manajemen Strategik</div>
+      <div class="brand-sub" id="mapel"></div>
     </div>
   </header>
   <main id="main" tabindex="-1"></main>
 </div>
-<div id="dock"></div>
-<div id="overlay"></div>
+
+<nav class="dock" aria-label="Navigasi utama"><div class="dock-bar" id="dock"></div></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript>Website ini membutuhkan JavaScript. Aktifkan JavaScript di browser Anda.</noscript>
+<script>window.QL_CAN_DOWNLOAD = false;</script>
 <script>
-/* ========== ENGINE (identical to Pemasaran Jasa) ========== */
-(function () {
-  'use strict';
-  var $main = document.getElementById('main');
-  var $dock = document.getElementById('dock');
-  var $overlay = document.getElementById('overlay');
-  var PG = window.QL_DATA || {};
-  var mapel = PG.mapel || 'Manajemen Strategik';
-  var KEY = 'ql_' + (PG.kunciPenyimpanan || 'manajemenstrategik');
-  var MIN_BAB = (PG.pengaturan && PG.pengaturan.penguasaan && PG.pengaturan.penguasaan.minJawabanBab) || 5;
-  // ... rest of engine identical ...
-  // (Full engine + data will be in the complete file)
+window.QL_DATA_READY = (async function () {
+  var binary = atob("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");
+  var bytes = Uint8Array.from(binary, function (c) { return c.charCodeAt(0); });
+  var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
+  window.QL_DATA = JSON.parse(await new Response(stream).text());
 })();
 </script>
+<script>
+/* QuizLearn: logika website. Tidak perlu diubah untuk mengganti soal (edit data.js). */
+window.QL_DATA_READY.then(function () {
+(function () {
+  'use strict';
+
+  var D = window.QL_DATA;
+  // Jika beberapa quiz dipasang di domain yang sama, isi "kunciPenyimpanan" di data.js
+  // (misalnya "akmen") agar riwayat tiap mata kuliah tidak tercampur.
+  var PFX = D.kunciPenyimpanan ? 'ql_' + D.kunciPenyimpanan + '_' : 'ql_';
+  var K_RIWAYAT = PFX + 'riwayat_v1';
+  var K_AKTIF = PFX + 'ujian_aktif_v1';
+  var VIEWS = ['beranda', 'latihan', 'ujian', 'progres'];
+  // Batas analisis penguasaan (bisa diubah di data.js > pengaturan > penguasaan)
+  var PG = (D.pengaturan && D.pengaturan.penguasaan) || {};
+  var BATAS_KUASAI = PG.batasDikuasai || 80;   // persen benar minimal untuk "Dikuasai"
+  var BATAS_CUKUP = PG.batasCukup || 60;       // persen benar minimal untuk "Cukup"
+  var MIN_BAB = PG.minJawabanBab || 5;         // jumlah jawaban minimal agar bab dinilai
+  var MIN_SOAL = PG.minJawabanSoal || 2;       // soal dinilai setelah dijawab minimal sekian kali
+  var BATAS_SALAH = PG.batasSoalSalah || 50;   // persen salah minimal agar soal masuk "sering salah"
+
+  /* ---------- penyimpanan (aman jika localStorage diblokir) ---------- */
+  var mem = {};
+  function sget(k) {
+    try { var v = localStorage.getItem(k); return v === null ? (mem[k] || null) : v; }
+    catch (e) { return mem[k] || null; }
+  }
+  function sset(k, v) { mem[k] = v; try { localStorage.setItem(k, v); } catch (e) {} }
+  function sdel(k) { delete mem[k]; try { localStorage.removeItem(k); } catch (e) {} }
+  function parse(s, fb) { try { return s ? JSON.parse(s) : fb; } catch (e) { return fb; } }
+
+  /* ---------- data soal ---------- */
+  var Q = {};       // id -> soal
+  var ALL = [];     // semua id soal berurutan dari bab pertama
+  var BAB = {};     // id bab -> bab
+  D.bab.forEach(function (b) {
+    BAB[b.id] = b;
+    b.soal.forEach(function (s) {
+      s.babId = b.id; s.babJudul = b.judul;
+      Q[s.id] = s; ALL.push(s.id);
+    });
+  });
+
+  /* ---------- util ---------- */
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fmtNum(n) { return Number(n).toLocaleString('id-ID', { maximumFractionDigits: 1 }); }
+  function fmtTime(sec) {
+    sec = Math.max(0, sec);
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  function fmtDate(iso) {
+    try {
+      return new Date(iso).toLocaleString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    } catch (e) { return iso; }
+  }
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  var LET = ['A', 'B', 'C', 'D'];
+
+  var P = {
+    home: '<path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-6h4v6"/>',
+    book: '<path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5z"/><path d="M12 6v13.5"/>',
+    pencil: '<path d="M4 20l1-4L16 5a2.1 2.1 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/>',
+    trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v2a3 3 0 0 0 4 2.8M16 6h4v2a3 3 0 0 1-4 2.8"/><path d="M12 13v4M8.5 20h7M10 17h4"/>',
+    chart: '<rect x="4" y="12" width="4" height="8" rx="1"/><rect x="10" y="5" width="4" height="15" rx="1"/><rect x="16" y="9" width="4" height="11" rx="1"/>',
+    clip: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 12h6M9 16h4"/>',
+    star: '<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9 6.8 19.7l1-5.9L3.5 9.7l5.9-.8z"/>',
+    target: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 12h.01"/>',
+    chev: '<path d="M9 6l6 6-6 6"/>',
+    left: '<path d="M15 6l-6 6 6 6"/>',
+    arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    x: '<path d="M6 6l12 12M18 6L6 18"/>',
+    flag: '<path d="M6 21V4"/><path d="M6 5h11l-2 4 2 4H6"/>',
+    grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+    bolt: '<path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/>',
+    calc: '<rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7.5h7"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/>',
+    bksp: '<path d="M21 5H9l-6 7 6 7h12z"/><path d="M12.5 9.5l5 5M17.5 9.5l-5 5"/>',
+    clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>'
+  };
+  function ic(n, s) {
+    s = s || 22;
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + P[n] + '</svg>';
+  }
+
+  /* ---------- riwayat ujian ---------- */
+  function validRec(x) {
+    return x && typeof x === 'object' && typeof x.id === 'string' && x.id.length > 0 && x.id.length <= 40 &&
+      typeof x.tanggal === 'string' && !isNaN(new Date(x.tanggal).getTime()) &&
+      Number.isInteger(x.benar) && Number.isInteger(x.salah) && x.benar >= 0 && x.salah >= 0 && x.benar + x.salah > 0;
+  }
+  function cleanRec(x) {
+    var total = x.benar + x.salah;
+    return {
+      id: x.id,
+      tanggal: new Date(x.tanggal).toISOString(),
+      benar: x.benar, salah: x.salah, total: total,
+      nilai: Math.round(x.benar / total * 1000) / 10,
+      durasi: Number.isFinite(x.durasi) && x.durasi >= 0 ? Math.round(x.durasi) : 0,
+      waktuHabis: !!x.waktuHabis,
+      detail: cleanDetail(x.detail)
+    };
+  }
+  // detail: id soal -> 1 (benar), 0 (salah), -1 (tidak sempat dijawab karena waktu habis)
+  function cleanDetail(d) {
+    var o = {}, n = 0;
+    if (!d || typeof d !== 'object' || Array.isArray(d)) return o;
+    Object.keys(d).forEach(function (k) {
+      if (n < 1000 && k.length <= 40 && k !== '__proto__' && (d[k] === 1 || d[k] === 0 || d[k] === -1)) { o[k] = d[k]; n++; }
+    });
+    return o;
+  }
+  function hasQ(id) { return Object.prototype.hasOwnProperty.call(Q, id); }
+  function getHist() {
+    var r = parse(sget(K_RIWAYAT), []);
+    return Array.isArray(r) ? r.filter(validRec).map(cleanRec) : [];
+  }
+  function setHist(h) { sset(K_RIWAYAT, JSON.stringify(h)); }
+  function stats(h) {
+    if (!h.length) return { n: 0, avg: null, max: null, last: null };
+    var sum = 0, max = 0;
+    h.forEach(function (r) { sum += r.nilai; if (r.nilai > max) max = r.nilai; });
+    return { n: h.length, avg: Math.round(sum / h.length * 10) / 10, max: max, last: h[h.length - 1].nilai };
+  }
+
+  /* ---------- analisis penguasaan (dari riwayat ujian) ---------- */
+  function statusBab(n, pct) {
+    if (n < MIN_BAB) return { k: 'data', t: 'Belum cukup data' };
+    if (pct >= BATAS_KUASAI) return { k: 'kuasai', t: 'Dikuasai' };
+    if (pct >= BATAS_CUKUP) return { k: 'cukup', t: 'Cukup' };
+    return { k: 'belum', t: 'Belum dikuasai' };
+  }
+  function analisis(h) {
+    var perSoal = {}, perBab = {}, ada = false;
+    D.bab.forEach(function (b) { perBab[b.id] = { b: b, benar: 0, salah: 0 }; });
+    h.forEach(function (r) {
+      Object.keys(r.detail || {}).forEach(function (id) {
+        var c = r.detail[id];
+        if (!hasQ(id) || c === -1) return;   // soal yang tidak sempat dijawab tidak dihitung
+        ada = true;
+        var s = perSoal[id] || (perSoal[id] = { id: id, benar: 0, salah: 0 });
+        var bb = perBab[Q[id].babId];
+        if (c === 1) { s.benar++; bb.benar++; } else { s.salah++; bb.salah++; }
+      });
+    });
+    var bab = D.bab.map(function (b) {
+      var x = perBab[b.id], n = x.benar + x.salah, pct = n ? Math.round(x.benar / n * 100) : 0;
+      return { b: b, n: n, pct: pct, st: statusBab(n, pct) };
+    });
+    var salah = [], benar = [];
+    ALL.forEach(function (id) {
+      var s = perSoal[id];
+      if (!s) return;
+      var n = s.benar + s.salah;
+      if (n < MIN_SOAL) return;
+      if (s.salah === 0) benar.push(s);
+      else if (s.salah / n * 100 >= BATAS_SALAH) salah.push(s);
+    });
+    salah.sort(function (a, b) {
+      return (b.salah / (b.benar + b.salah)) - (a.salah / (a.benar + a.salah)) || b.salah - a.salah;
+    });
+    return { ada: ada, bab: bab, salah: salah, benar: benar };
+  }
+
+  /* ---------- status aplikasi ---------- */
+  var view = readHash();
+  var lat = { fase: 'awal', list: [], i: 0, ans: {}, b: 'semua', label: '' };
+  var aktif = loadAktif();      // ujian yang sedang berjalan
+  var ujHasil = null;           // hasil ujian terakhir (ditampilkan sekali)
+  var navOpen = false;          // pop-up navigasi nomor soal
+  var calcOpen = false;         // pop-up kalkulator
+  var calc = null;              // status kalkulator (diisi di bagian kalkulator)
+  var confirming = false;       // panel konfirmasi akhiri ujian
+  var hapusConfirm = false;     // panel konfirmasi hapus riwayat
+  var cadangan = null;          // teks cadangan untuk disalin manual
+  var lastView = null;
+
+  function readHash() {
+    var h = (location.hash || '').replace('#', '');
+    return VIEWS.indexOf(h) >= 0 ? h : 'beranda';
+  }
+  function loadAktif() {
+    var a = parse(sget(K_AKTIF), null);
+    if (!a || !Array.isArray(a.ids) || !a.ids.length || typeof a.endAt !== 'number' || typeof a.startAt !== 'number') return null;
+    // Buang sesi lama jika jumlah soal ujian telah diubah pada konfigurasi.
+    if (a.ids.length !== Math.min(D.pengaturan.ujianJumlahSoal, ALL.length)) { sdel(K_AKTIF); return null; }
+    for (var i = 0; i < a.ids.length; i++) { if (!Q[a.ids[i]]) return null; }
+    a.answers = (a.answers && typeof a.answers === 'object') ? a.answers : {};
+    var fl = {};
+    if (a.flags && typeof a.flags === 'object') { a.ids.forEach(function (id) { if (a.flags[id] === true && a.answers[id] !== undefined && a.answers[id] !== null) fl[id] = true; }); }
+    a.flags = fl;
+    a.idx = Math.min(Math.max(0, a.idx | 0), a.ids.length - 1);
+    return a;
+  }
+  function saveAktif() { sset(K_AKTIF, JSON.stringify(aktif)); }
+
+  /* ---------- tampilan ---------- */
+  var $main = document.getElementById('main');
+  var $dock = document.getElementById('dock');
+  var $toast = document.getElementById('toast');
+  var $ov = document.createElement('div'); $ov.id = 'overlay'; document.body.appendChild($ov);
+  var toastTimer = null;
+  document.getElementById('mapel').textContent = D.mapel;
+
+  function toast(msg) {
+    $toast.textContent = msg;
+    $toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { $toast.classList.remove('show'); }, 3800);
+  }
+
+  function renderDock() {
+    var items = [['beranda', 'Beranda', 'home'], ['latihan', 'Latihan', 'pencil'], ['ujian', 'Ujian', 'trophy'], ['progres', 'Progres', 'chart']];
+    $dock.innerHTML = items.map(function (it) {
+      return '<button type="button" data-act="go" data-v="' + it[0] + '"' + (view === it[0] ? ' aria-current="page"' : '') + '>' + ic(it[2]) + it[1] + '</button>';
+    }).join('');
+  }
+
+  function render(opts) {
+    var html;
+    if (view === 'latihan') html = vLatihan();
+    else if (view === 'ujian') html = vUjian();
+    else if (view === 'progres') html = vProgres();
+    else html = vBeranda();
+    var ovOn = (navOpen || calcOpen) && ((view === 'ujian' && aktif && !ujHasil) || (view === 'latihan' && lat.fase === 'jalan'));
+    if (!ovOn) { navOpen = false; calcOpen = false; }
+    $main.innerHTML = html;
+    $ov.innerHTML = ovOn ? (calcOpen ? vCalcPopup() : (view === 'latihan' ? vLatNavPopup() : vNavPopup())) : '';
+    document.body.style.overflow = ovOn ? 'hidden' : '';
+    renderDock();
+    document.title = 'QuizLearn - ' + D.mapel;
+    if (lastView !== view || (opts && opts.top)) {
+      window.scrollTo(0, 0);
+      if (lastView !== view) { try { $main.focus({ preventScroll: true }); } catch (e) {} }
+    }
+    lastView = view;
+    tick();
+  }
+
+  function go(v) {
+    if (location.hash === '#' + v) { view = v; render(); }
+    else { location.hash = v; }
+  }
+  window.addEventListener('hashchange', function () { view = readHash(); render(); });
+
+  /* ----- grafik nilai ----- */
+  function chart(h) {
+    var d = h.slice(-7), n = d.length;
+    if (!n) return '<p class="empty">Belum ada data. Selesaikan satu ujian untuk melihat grafik nilai.</p>';
+    var x0 = 40, x1 = 292, base = 130;
+    var pts = d.map(function (r, i) {
+      return { x: n === 1 ? 166 : x0 + i * (x1 - x0) / (n - 1), y: base - r.nilai, r: r, no: h.length - n + i + 1 };
+    });
+    var last = pts[n - 1];
+    var s = '<svg class="chart" viewBox="0 0 320 152" role="img" aria-label="Grafik nilai ujian terakhir, nilai terbaru ' + fmtNum(last.r.nilai) + '">';
+    s += '<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E07BA3" stop-opacity="0.30"/><stop offset="1" stop-color="#E07BA3" stop-opacity="0"/></linearGradient></defs>';
+    [100, 75, 50, 25, 0].forEach(function (v) {
+      s += '<line class="gl" x1="30" y1="' + (base - v) + '" x2="312" y2="' + (base - v) + '"/>';
+      s += '<text x="24" y="' + (base - v + 3) + '" text-anchor="end">' + v + '</text>';
+    });
+    if (n > 1) {
+      s += '<path d="M' + pts[0].x + ',' + base + ' ' + pts.map(function (p) { return 'L' + p.x + ',' + p.y; }).join(' ') + ' L' + last.x + ',' + base + ' Z" fill="url(#ag)"/>';
+      s += '<polyline class="ln" points="' + pts.map(function (p) { return p.x + ',' + p.y; }).join(' ') + '"/>';
+    }
+    pts.forEach(function (p, i) {
+      if (i < n - 1) s += '<circle class="pt" cx="' + p.x + '" cy="' + p.y + '" r="4.5"/>';
+    });
+    s += '<circle class="pe" cx="' + last.x + '" cy="' + last.y + '" r="5.5"/>';
+    var ty = Math.max(2, last.y - 28), tx = Math.min(last.x - 20, 278);
+    s += '<rect class="tip" x="' + tx + '" y="' + ty + '" width="40" height="18" rx="9"/>';
+    s += '<text class="tipt" x="' + (tx + 20) + '" y="' + (ty + 13) + '" text-anchor="middle">' + fmtNum(last.r.nilai) + '</text>';
+    pts.forEach(function (p) { s += '<text x="' + p.x + '" y="147" text-anchor="middle">#' + p.no + '</text>'; });
+    return s + '</svg>';
+  }
+
+  /* ----- beranda ----- */
+  function statsHtml(st) {
+    var items = [
+      ['clip', st.n ? String(st.n) : '0', 'Ujian Selesai'],
+      ['target', st.avg === null ? '–' : fmtNum(st.avg), 'Rata-rata Nilai'],
+      ['trophy', st.max === null ? '–' : fmtNum(st.max), 'Nilai Tertinggi'],
+      ['star', st.last === null ? '–' : fmtNum(st.last), 'Nilai Terakhir']
+    ];
+    return '<div class="stats">' + items.map(function (it) {
+      return '<div class="glass stat">' + ic(it[0], 24) + '<b>' + it[1] + '</b><span>' + it[2] + '</span></div>';
+    }).join('') + '</div>';
+  }
+
+  function vBeranda() {
+    var h = getHist(), st = stats(h);
+    var jml = Math.min(D.pengaturan.ujianJumlahSoal, ALL.length), mnt = D.pengaturan.ujianMenit;
+    var html = '<h1 class="h1">Selamat Datang Kembali!</h1>' +
+      '<p class="lead">Berlatih, lalu uji pemahamanmu di ' + esc(D.mapel) + '.</p>';
+    if (aktif) {
+      html += '<section class="glass card" style="flex-direction:row;align-items:center;flex-wrap:wrap"><div style="flex:1 1 160px"><h3 class="h3">Ujian sedang berjalan</h3><span class="muted small">Waktu terus berjalan. Lanjutkan sebelum habis.</span></div><button type="button" class="btn btn-sm" data-act="go" data-v="ujian">Lanjutkan</button></section>';
+    }
+    html += statsHtml(st);
+    html += '<section class="card dark on-dark"><div class="eyebrow">Ujian Quiz</div>' +
+      '<div class="cta"><div class="grow"><div class="t">Uji pemahamanmu</div><div class="meta">' + jml + ' soal, ' + mnt + ' menit</div></div>' +
+      '<button type="button" class="btn btn-light" data-act="go" data-v="ujian">Mulai Ujian ' + ic('arrow', 16) + '</button></div></section>';
+    html += '<section class="glass card"><h2 class="h2"><span class="dot"></span>Perkembangan Nilai Ujian</h2>' + chart(h) + '</section>';
+    return html;
+  }
+
+  /* ----- latihan ----- */
+  function latBaru() { return { fase: 'awal', list: [], i: 0, ans: {}, b: 'semua', label: '' }; }
+
+  function latHitung() {
+    var dj = 0, bn = 0;
+    lat.list.forEach(function (id) {
+      var v = lat.ans[id];
+      if (v !== undefined) { dj++; if (v === Q[id].kunci) bn++; }
+    });
+    return { dj: dj, bn: bn };
+  }
+
+  function exTeks(ok, teks) {
+    return '<div class="ex ' + (ok ? 'ok' : 'bad') + '"><b>' + ic(ok ? 'check' : 'x', 16) + (ok ? 'Mengapa jawaban ini benar' : 'Mengapa jawaban ini salah') + '</b><p>' + esc(teks) + '</p></div>';
+  }
+
+  function vLatihan() {
+    if (lat.fase === 'awal') {
+      return '<h1 class="h1">Latihan Quiz</h1><p class="lead">Kerjakan seluruh soal dalam satu rangkaian. Setiap jawaban langsung dikoreksi dan dijelaskan, tanpa batas waktu.</p>' +
+        '<section class="glass card"><h2 class="h2"><span class="dot"></span>Cara Berlatih</h2><ol class="rules">' +
+        '<li>Bacalah setiap soal dengan teliti.</li>' +
+        '<li>Pilih satu jawaban yang paling tepat.</li>' +
+        '<li>Koreksi dan penjelasan langsung muncul setelah kamu memilih.</li>' +
+        '<li>Jawaban yang sudah dipilih tidak bisa diubah.</li>' +
+        '<li>Gunakan tombol Nomor untuk berpindah ke soal lain.</li>' +
+        '<li>Hasil latihan tidak disimpan di Progres.</li></ol>' +
+        '<button type="button" class="btn btn-block" data-act="lat-mulai">' + ic('pencil', 18) + 'Mulai Latihan (' + ALL.length + ' soal)</button></section>';
+    }
+    var n = lat.list.length, c = latHitung();
+    if (lat.fase === 'selesai') {
+      var pct = Math.round(c.bn / n * 1000) / 10;
+      return '<h1 class="h1">Latihan Selesai</h1>' +
+        '<section class="glass card"><div class="eyebrow" style="color:var(--ink-2)">' + esc(lat.label) + '</div><div class="score">' + c.bn + '<small> / ' + n + ' benar</small></div><p class="lead">Ketepatan ' + fmtNum(pct) + '%. Hasil latihan tidak disimpan di Progres.</p></section>' +
+        '<div class="row"><button type="button" class="btn" data-act="lat-ulang">Ulangi</button><button type="button" class="btn btn-ghost" data-act="lat-keluar">Kembali</button></div>';
+    }
+    var id = lat.list[lat.i], q = Q[id], pilih = lat.ans[id], done = pilih !== undefined, sisa = n - c.dj;
+    var h = '<div class="qhead"><span class="chip">Soal ' + (lat.i + 1) + ' dari ' + n + '</span>' +
+      '<button type="button" class="chip chip-btn" data-act="nav-buka" aria-haspopup="dialog" aria-label="Buka navigasi soal">' + ic('grid', 14) + 'Nomor</button>' +
+      '<button type="button" class="chip chip-btn chip-ico" data-act="calc-buka" aria-haspopup="dialog" aria-label="Buka kalkulator">' + ic('calc', 16) + '</button>' +
+      '<button type="button" class="btn btn-ghost btn-sm" style="margin-left:auto" data-act="lat-keluar">Keluar</button></div>';
+    h += '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + n + '" aria-valuenow="' + c.dj + '" aria-label="Kemajuan latihan"><i style="width:' + (c.dj / n * 100) + '%"></i></div>';
+    h += '<section class="glass card"><p class="qtext">' + esc(q.tanya) + '</p><div class="opts">';
+    q.opsi.forEach(function (o, k) {
+      var cls = '', tag = '', ex = '';
+      if (done) {
+        if (k === q.kunci) {
+          cls = ' ok'; tag = '<span class="tag">' + (pilih === k ? 'Jawabanmu benar' : 'Jawaban yang benar') + '</span>';
+          ex = exTeks(true, q.jelas);
+        } else if (k === pilih) {
+          cls = ' bad'; tag = '<span class="tag">Jawabanmu salah</span>';
+          ex = exTeks(false, (q.jelasOpsi && q.jelasOpsi[k]) || 'Pilihan ini kurang tepat. Lihat penjelasan pada jawaban yang benar.');
+        } else cls = ' dim';
+      }
+      h += '<div class="og"><button type="button" class="opt' + cls + '" data-act="lat-jawab" data-k="' + k + '"' + (done ? ' disabled' : '') + '><span class="lt">' + LET[k] + '</span><span class="tx"><span>' + esc(o) + '</span>' + tag + '</span></button>' + ex + '</div>';
+    });
+    h += '</div></section>';
+    h += '<div class="ctl"><button type="button" class="btn btn-ghost btn-step" data-act="lat-prev" aria-label="Soal sebelumnya"' + (lat.i === 0 ? ' disabled' : '') + '>' + ic('left', 22) + '</button>' +
+      '<button type="button" class="btn btn-ghost" data-act="lat-akhiri"' + (sisa > 0 ? ' disabled' : '') + '>Akhiri Latihan</button>' +
+      '<button type="button" class="btn btn-ghost btn-step" data-act="lat-next" aria-label="Soal berikutnya"' + (lat.i >= n - 1 ? ' disabled' : '') + '>' + ic('chev', 22) + '</button></div>';
+    if (sisa > 0) h += '<p class="note" style="text-align:center">Masih ada ' + sisa + ' soal yang belum dijawab.</p>';
+    return h;
+  }
+
+  function vLatNavPopup() {
+    var n = lat.list.length, c = latHitung();
+    var g = '<div class="nav-grid" role="group" aria-label="Nomor soal">';
+    lat.list.forEach(function (x, i) {
+      var v = lat.ans[x], d = v !== undefined, ok = d && v === Q[x].kunci;
+      g += '<button type="button" class="nb' + (d ? (ok ? ' done' : ' bad') : '') + (i === lat.i ? ' now' : '') + '" data-act="lat-ke" data-i="' + i + '" aria-label="Soal ' + (i + 1) + (d ? (ok ? ', dijawab benar' : ', dijawab salah') : ', belum dijawab') + '"' + (i === lat.i ? ' aria-current="true"' : '') + '><span class="n">' + (i + 1) + '</span></button>';
+    });
+    g += '</div>';
+    return '<div class="ov" data-act="nav-tutup"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="navt" data-act="noop">' +
+      '<div class="sheet-h"><h2 class="h2" id="navt">Navigasi Soal</h2><button type="button" class="iconbtn" data-act="nav-tutup" aria-label="Tutup navigasi soal">' + ic('x', 18) + '</button></div>' +
+      '<p class="note">Dijawab ' + c.dj + ' dari ' + n + '. Belum dijawab ' + (n - c.dj) + '. Benar ' + c.bn + '. Salah ' + (c.dj - c.bn) + '.</p>' +
+      g + '<button type="button" class="btn btn-block" data-act="nav-tutup">Tutup</button></div></div>';
+  }
+
+  function latMulai(b) {
+    var ids, label;
+    b = b || 'semua';
+    if (b === 'semua') { ids = ALL.slice(); label = 'Semua Soal'; }
+    else if (b === 'salah') {
+      var set = {};
+      analisis(getHist()).salah.forEach(function (s) { set[s.id] = true; });
+      ids = ALL.filter(function (id) { return set[id]; });
+      label = 'Soal yang sering salah';
+      if (!ids.length) { toast('Belum ada soal yang sering salah.'); return; }
+    } else if (BAB[b]) { ids = BAB[b].soal.map(function (s) { return s.id; }); label = BAB[b].judul; }
+    else return;
+    if (!ids.length) { toast('Belum ada soal.'); return; }
+    lat = { fase: 'jalan', list: ids, i: 0, ans: {}, b: b, label: label };
+    navOpen = false;
+    go('latihan');
+    render({ top: true });
+  }
+
+  /* ----- ujian ----- */
+  function ujianJumlah() { return Math.min(D.pengaturan.ujianJumlahSoal, ALL.length); }
+
+  function vUjian() {
+    if (aktif) return vUjianJalan();
+    if (ujHasil) return vUjianHasil();
+    var mnt = D.pengaturan.ujianMenit;
+    var h = getHist(), last = h.length ? h[h.length - 1] : null;
+    return '<h1 class="h1">Ujian Quiz</h1><p class="lead">Ujikan pemahamanmu tanpa petunjuk jawaban.</p>' +
+      '<section class="glass card"><h2 class="h2"><span class="dot"></span>Peraturan Pengerjaan Quiz</h2><ol class="rules">' +
+      '<li>Bacalah setiap soal dengan teliti.</li>' +
+      '<li>Pilih satu jawaban yang paling tepat.</li>' +
+      '<li>Setiap soal hanya memiliki satu jawaban benar.</li>' +
+      '<li>Waktu pengerjaan ' + mnt + ' menit.</li>' +
+      '<li>Periksa kembali jawaban sebelum menyelesaikan quiz.</li>' +
+      '<li>Hasil quiz ditampilkan setelah pengerjaan selesai.</li></ol>' +
+      '<button type="button" class="btn btn-block" data-act="uj-mulai">' + ic('clock', 18) + 'Mulai Ujian</button></section>' +
+      (last ? '<p class="note">Ujian terakhir: nilai ' + fmtNum(last.nilai) + ' (' + last.benar + ' benar, ' + last.salah + ' salah), ' + esc(fmtDate(last.tanggal)) + '.</p>' : '');
+  }
+
+  function navGrid(a) {
+    var h = '<div class="nav-grid" role="group" aria-label="Nomor soal">';
+    a.ids.forEach(function (x, i) {
+      var d = a.answers[x] !== undefined && a.answers[x] !== null, r = !!a.flags[x];
+      var huruf = d ? LET[a.answers[x]] : '';
+      h += '<button type="button" class="nb' + (d ? (r ? ' ragu' : ' done') : '') + (i === a.idx ? ' now' : '') + '" data-act="uj-ke" data-i="' + i + '" aria-label="Soal ' + (i + 1) + (d ? ', dijawab ' + huruf : ', belum dijawab') + (r ? ', ragu-ragu' : '') + '"' + (i === a.idx ? ' aria-current="true"' : '') + '><span class="n">' + (d ? huruf : (i + 1)) + '</span></button>';
+    });
+    return h + '</div>';
+  }
+
+  function vNavPopup() {
+    var a = aktif, n = a.ids.length, dj = 0, rg = 0;
+    a.ids.forEach(function (x) { if (a.answers[x] !== undefined && a.answers[x] !== null) dj++; if (a.flags[x]) rg++; });
+    return '<div class="ov" data-act="nav-tutup"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="navt" data-act="noop">' +
+      '<div class="sheet-h"><h2 class="h2" id="navt">Navigasi Soal</h2><button type="button" class="iconbtn" data-act="nav-tutup" aria-label="Tutup navigasi soal">' + ic('x', 18) + '</button></div>' +
+      '<p class="note">Dijawab ' + dj + ' dari ' + n + '. Belum dijawab ' + (n - dj) + '. Ragu-ragu ' + rg + '.</p>' +
+      navGrid(a) +
+      '<button type="button" class="btn btn-block" data-act="nav-tutup">Tutup</button></div></div>';
+  }
+
+  function vUjianJalan() {
+    var a = aktif, n = a.ids.length, id = a.ids[a.idx], q = Q[id];
+    var jawab = a.answers, terjawab = 0, ragu = 0;
+    a.ids.forEach(function (x) { if (jawab[x] !== undefined && jawab[x] !== null) terjawab++; if (a.flags[x]) ragu++; });
+    var sisa = n - terjawab, isRagu = !!a.flags[id];
+    var rem = Math.max(0, Math.ceil((a.endAt - Date.now()) / 1000));
+    var h = '<div class="qhead"><span class="chip">Soal ' + (a.idx + 1) + ' dari ' + n + '</span>' +
+      '<button type="button" class="chip chip-btn" data-act="nav-buka" aria-haspopup="dialog" aria-label="Buka navigasi soal">' + ic('grid', 14) + 'Nomor</button>' +
+      '<button type="button" class="chip chip-btn chip-ico" data-act="calc-buka" aria-haspopup="dialog" aria-label="Buka kalkulator">' + ic('calc', 16) + '</button>' +
+      '<span class="chip timer" id="timer" role="timer" aria-label="Sisa waktu" data-low="' + (rem < 60 ? 1 : 0) + '">' + fmtTime(rem) + '</span></div>';
+    h += '<section class="glass card"><p class="qtext">' + esc(q.tanya) + '</p><div class="opts">';
+    q.opsi.forEach(function (o, k) {
+      var sel = jawab[id] === k;
+      h += '<button type="button" class="opt' + (sel ? ' sel' : '') + '" data-act="uj-jawab" data-k="' + k + '" aria-pressed="' + (sel ? 'true' : 'false') + '"><span class="lt">' + LET[k] + '</span><span class="tx"><span>' + esc(o) + '</span></span></button>';
+    });
+    h += '</div></section>';
+    h += '<div class="ctl"><button type="button" class="btn btn-ghost btn-step" data-act="uj-prev" aria-label="Soal sebelumnya"' + (a.idx === 0 ? ' disabled' : '') + '>' + ic('left', 22) + '</button>' +
+      '<button type="button" class="btn btn-ghost btn-ragu" data-act="uj-ragu" aria-pressed="' + (isRagu ? 'true' : 'false') + '"' + (jawab[id] === undefined || jawab[id] === null ? ' disabled title="Pilih jawaban dulu"' : '') + '>' + ic('flag', 16) + 'Ragu-ragu</button>' +
+      '<button type="button" class="btn btn-ghost btn-step" data-act="uj-next" aria-label="Soal berikutnya"' + (a.idx >= n - 1 ? ' disabled' : '') + '>' + ic('chev', 22) + '</button></div>';
+    if (confirming && sisa === 0) {
+      h += '<div class="confirm"><p><b>Akhiri ujian sekarang?</b> Jawaban tidak bisa diubah setelahnya.' + (ragu ? ' Masih ada ' + ragu + ' soal ditandai ragu-ragu.' : '') + '</p><div class="row"><button type="button" class="btn" data-act="uj-ya">Ya, akhiri</button><button type="button" class="btn btn-ghost" data-act="uj-batal">Kembali</button></div></div>';
+    } else {
+      h += '<button type="button" class="btn btn-block" data-act="uj-akhiri"' + (sisa > 0 ? ' disabled' : '') + '>Akhiri Ujian</button>';
+      if (sisa > 0) h += '<p class="note" style="text-align:center">Masih ada ' + sisa + ' soal yang belum dijawab.</p>';
+      else if (ragu) h += '<p class="note" style="text-align:center">Ada ' + ragu + ' soal ditandai ragu-ragu. Buka Nomor untuk meninjau.</p>';
+    }
+    return h;
+  }
+
+  function vUjianHasil() {
+    var r = ujHasil;
+    return '<h1 class="h1">Hasil Ujian</h1>' +
+      '<section class="glass card"><div class="eyebrow" style="color:var(--ink-2)">Nilai</div><div class="score">' + fmtNum(r.nilai) + '<small> / 100</small></div>' +
+      '<p class="lead">' + (r.waktuHabis ? 'Waktu habis. Soal yang belum dijawab dihitung salah.' : 'Ujian diakhiri.') + ' Lama pengerjaan ' + fmtTime(r.durasi) + '.</p></section>' +
+      '<div class="two"><div class="glass"><b>' + r.benar + '</b><span>Jawaban benar</span></div><div class="glass"><b>' + r.salah + '</b><span>Jawaban salah</span></div></div>' +
+      '<p class="note">Hasil ini sudah tersimpan di menu Progres.</p>' +
+      '<div class="row"><button type="button" class="btn" data-act="go" data-v="progres">Lihat Progres</button><button type="button" class="btn btn-ghost" data-act="uj-ulang">Ujian lagi</button></div>';
+  }
+
+  function ujMulai() {
+    if (!ALL.length) { toast('Belum ada soal.'); return; }
+    var ids = shuffle(ALL).slice(0, ujianJumlah());
+    var now = Date.now();
+    aktif = { id: now.toString(36) + Math.random().toString(36).slice(2, 6), startAt: now, endAt: now + D.pengaturan.ujianMenit * 60000, ids: ids, answers: {}, flags: {}, idx: 0 };
+    ujHasil = null; confirming = false; navOpen = false;
+    saveAktif();
+    render({ top: true });
+  }
+
+  function finish(waktuHabis) {
+    if (!aktif) return;
+    var a = aktif, benar = 0, total = a.ids.length;
+    var detail = {};
+    a.ids.forEach(function (id) {
+      var jw = a.answers[id];
+      if (jw === undefined || jw === null) detail[id] = -1;
+      else if (jw === Q[id].kunci) { detail[id] = 1; benar++; }
+      else detail[id] = 0;
+    });
+    var end = Math.min(Date.now(), a.endAt);
+    var rec = {
+      id: a.id, tanggal: new Date(end).toISOString(), benar: benar, salah: total - benar, total: total,
+      nilai: Math.round(benar / total * 1000) / 10, durasi: Math.round((end - a.startAt) / 1000), waktuHabis: !!waktuHabis,
+      detail: detail
+    };
+    var h = getHist();
+    h.push(rec);
+    setHist(h);
+    aktif = null; sdel(K_AKTIF); confirming = false; ujHasil = rec;
+    if (view !== 'ujian') toast('Waktu ujian habis. Hasil sudah tersimpan di Progres.');
+    render({ top: true });
+  }
+
+  function tick() {
+    if (!aktif) return;
+    var rem = aktif.endAt - Date.now();
+    if (rem <= 0) { finish(true); return; }
+    var el = document.getElementById('timer');
+    if (el) {
+      var s = Math.ceil(rem / 1000);
+      el.textContent = fmtTime(s);
+      el.setAttribute('data-low', s < 60 ? '1' : '0');
+    }
+  }
+  setInterval(tick, 500);
+  document.addEventListener('visibilitychange', tick);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && (navOpen || calcOpen)) { var kal = calcOpen; navOpen = false; calcOpen = false; render(); var nb = document.querySelector(kal ? '[data-act="calc-buka"]' : '[data-act="nav-buka"]'); if (nb) nb.focus(); } });
+
+  /* ----- kalkulator ----- */
+  var OPSYM = { '+': '+', '-': '\u2212', '*': '\u00d7', '/': '\u00f7' };
+  function calcBaru() { return { cur: '0', acc: null, op: null, fresh: false, expr: '', err: false }; }
+  calc = calcBaru();
+  function cFmt(x) {
+    x = String(x);
+    if (/e/i.test(x)) return x.replace('.', ',');
+    var neg = x.charAt(0) === '-'; if (neg) x = x.slice(1);
+    var p = x.split('.'), ip = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return (neg ? '-' : '') + ip + (p.length > 1 ? ',' + p[1] : '');
+  }
+  function cHitung(a, o, b) {
+    var r = o === '+' ? a + b : o === '-' ? a - b : o === '*' ? a * b : (b === 0 ? NaN : a / b);
+    if (!isFinite(r)) return null;
+    return String(parseFloat(r.toPrecision(12)));
+  }
+  function cError() { calc = calcBaru(); calc.err = true; }
+  function cTekan(k) {
+    if (calc.err && k !== 'C') calc = calcBaru();
+    var c = calc, r;
+    if (k.length === 1 && k >= '0' && k <= '9') {
+      if (c.fresh) { c.cur = k; c.fresh = false; }
+      else if (c.cur.replace(/[-.]/g, '').length < 15) c.cur = c.cur === '0' ? k : (c.cur === '-0' ? '-' + k : c.cur + k);
+    } else if (k === '.') {
+      if (c.fresh) { c.cur = '0.'; c.fresh = false; }
+      else if (c.cur.indexOf('.') < 0) c.cur += '.';
+    } else if (k === 'C') {
+      calc = calcBaru();
+    } else if (k === 'B') {
+      if (!c.fresh) c.cur = (c.cur.length > 1 && !(c.cur.length === 2 && c.cur.charAt(0) === '-')) ? c.cur.slice(0, -1) : '0';
+    } else if (k === 'N') {
+      if (c.cur !== '0' && c.cur !== '0.') c.cur = c.cur.charAt(0) === '-' ? c.cur.slice(1) : '-' + c.cur;
+    } else if (k === '%') {
+      c.cur = String(parseFloat((parseFloat(c.cur) / 100).toPrecision(12))); c.fresh = true;
+    } else if (OPSYM[k]) {
+      if (c.op && c.acc !== null && !c.fresh) {
+        r = cHitung(c.acc, c.op, parseFloat(c.cur));
+        if (r === null) { cError(); return; }
+        c.acc = parseFloat(r); c.cur = r;
+      } else c.acc = parseFloat(c.cur);
+      c.op = k; c.fresh = true; c.expr = cFmt(c.cur) + ' ' + OPSYM[k];
+    } else if (k === '=') {
+      if (c.op && c.acc !== null) {
+        var b = c.fresh ? c.acc : parseFloat(c.cur);
+        r = cHitung(c.acc, c.op, b);
+        if (r === null) { cError(); return; }
+        c.expr = cFmt(c.acc) + ' ' + OPSYM[c.op] + ' ' + cFmt(b) + ' =';
+        c.cur = r; c.acc = null; c.op = null; c.fresh = true;
+      }
+    }
+  }
+  function calcTeks() { return calc.err ? 'Tidak valid' : cFmt(calc.cur); }
+  function calcUkuran(t) { return t.length > 14 ? 22 : (t.length > 10 ? 28 : 36); }
+  function calcUpdate() {
+    var d = document.getElementById('calcd'), e = document.getElementById('calce');
+    if (!d || !e) return;
+    var t = calcTeks();
+    d.textContent = t; d.style.fontSize = calcUkuran(t) + 'px';
+    e.textContent = calc.expr || '\u00a0';
+  }
+  function vCalcPopup() {
+    var K = [
+      ['C', 'C', 'fn', 'Hapus semua'], ['B', ic('bksp', 22), 'fn', 'Hapus satu angka'], ['%', '%', 'fn', 'Persen'], ['/', '\u00f7', 'op', 'Bagi'],
+      ['7', '7'], ['8', '8'], ['9', '9'], ['*', '\u00d7', 'op', 'Kali'],
+      ['4', '4'], ['5', '5'], ['6', '6'], ['-', '\u2212', 'op', 'Kurang'],
+      ['1', '1'], ['2', '2'], ['3', '3'], ['+', '+', 'op', 'Tambah'],
+      ['N', '\u00b1', 'fn', 'Ubah positif atau negatif'], ['0', '0'], ['.', ',', '', 'Koma desimal'], ['=', '=', 'op', 'Sama dengan']
+    ];
+    var t = calcTeks();
+    return '<div class="ov" data-act="calc-tutup"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="calct" data-act="noop">' +
+      '<div class="sheet-h"><h2 class="h2" id="calct">Kalkulator</h2><button type="button" class="iconbtn" data-act="calc-tutup" aria-label="Tutup kalkulator">' + ic('x', 18) + '</button></div>' +
+      '<div class="cdisp"><div class="ce" id="calce">' + (calc.expr ? esc(calc.expr) : '&nbsp;') + '</div><div class="cd" id="calcd" style="font-size:' + calcUkuran(t) + 'px">' + esc(t) + '</div></div>' +
+      '<div class="ckeys">' + K.map(function (x) {
+        return '<button type="button" class="ck' + (x[2] ? ' ' + x[2] : '') + '" data-act="calc-key" data-k="' + x[0] + '"' + (x[3] ? ' aria-label="' + x[3] + '"' : '') + '>' + x[1] + '</button>';
+      }).join('') + '</div></div></div>';
+  }
+
+  /* ----- progres ----- */
+  function vProgres() {
+    var h = getHist(), st = stats(h);
+    var html = '<h1 class="h1">Progres Ujian</h1><p class="lead">Riwayat nilai dari ujian quiz yang sudah kamu selesaikan.</p>' + statsHtml(st);
+    html += '<section class="glass card"><h2 class="h2"><span class="dot"></span>Perkembangan Nilai</h2>' + chart(h) + '</section>';
+    html += vPenguasaan(h, analisis(h));
+    html += '<section class="glass card"><h2 class="h2"><span class="dot"></span>Riwayat</h2>';
+    if (!h.length) html += '<p class="empty">Belum ada riwayat ujian.</p>';
+    else {
+      html += '<ul class="hist">';
+      h.slice().reverse().forEach(function (r) {
+        html += '<li><div class="hn"><b>' + esc(fmtDate(r.tanggal)) + '</b><span>' + r.benar + ' benar, ' + r.salah + ' salah' + (r.waktuHabis ? ', waktu habis' : '') + '</span></div><span class="nv">' + fmtNum(r.nilai) + '</span></li>';
+      });
+      html += '</ul>';
+    }
+    html += '</section>';
+    html += '<section class="glass card"><h2 class="h2"><span class="dot"></span>Cadangan riwayat</h2>' +
+      '<p class="lead">Riwayat tersimpan di browser ini saja. Simpan cadangan agar tidak hilang saat data browser dihapus atau saat berganti HP.</p>' +
+      '<div class="row"><button type="button" class="btn btn-ghost" data-act="pr-salin"' + (h.length ? '' : ' disabled') + '>Salin cadangan</button>' +
+      (window.QL_CAN_DOWNLOAD ? '<button type="button" class="btn btn-ghost" data-act="pr-unduh"' + (h.length ? '' : ' disabled') + '>Unduh file</button>' : '') + '</div>';
+    if (cadangan) html += '<label for="cad" class="note">Salin teks berikut secara manual:</label><textarea id="cad" readonly>' + esc(cadangan) + '</textarea>';
+    html += '<label for="imp" class="note">Pulihkan dari cadangan: tempel teks cadangan atau pilih file.</label>' +
+      '<textarea id="imp" placeholder="Tempel teks cadangan di sini"></textarea>' +
+      '<div class="row"><button type="button" class="btn btn-sm" data-act="pr-pulihkan">Pulihkan</button>' +
+      '<span class="btn btn-ghost btn-sm filebtn">Pilih file cadangan<input type="file" id="impFile" accept=".json,application/json,text/plain" aria-label="Pilih file cadangan"></span></div></section>';
+    if (h.length) {
+      if (hapusConfirm) html += '<div class="confirm"><p><b>Hapus semua riwayat ujian?</b> Tindakan ini tidak bisa dibatalkan.</p><div class="row"><button type="button" class="btn" data-act="pr-hapus-ya">Ya, hapus</button><button type="button" class="btn btn-ghost" data-act="pr-hapus-batal">Batal</button></div></div>';
+      else html += '<button type="button" class="btn btn-ghost btn-block" data-act="pr-hapus">Hapus semua riwayat</button>';
+    }
+    return html;
+  }
+
+  function soalItem(s, tipe) {
+    var q = Q[s.id], n = s.benar + s.salah;
+    var info = tipe === 'salah' ? 'Salah ' + s.salah + ' dari ' + n + ' kali' : 'Benar ' + s.benar + ' dari ' + n + ' kali';
+    return '<li><div class="qt">' + esc(q.tanya) + '</div><div class="qm"><span class="chip">' + esc(q.babJudul.split('.')[0]) + '</span><span class="small muted">' + info + '</span></div></li>';
+  }
+  function daftarSoal(judul, list, tipe, kosong) {
+    var html = '<section class="glass card"><h2 class="h2"><span class="dot"></span>' + judul + '</h2>';
+    if (!list.length) return html + '<p class="empty">' + kosong + '</p></section>';
+    html += '<ul class="qlist">' + list.slice(0, 10).map(function (s) { return soalItem(s, tipe); }).join('') + '</ul>';
+    if (list.length > 10) html += '<p class="note">Dan ' + (list.length - 10) + ' soal lainnya.</p>';
+    if (tipe === 'salah') html += '<button type="button" class="btn btn-block" data-act="lat-mulai" data-b="salah">' + ic('pencil', 18) + 'Latih soal-soal ini</button>';
+    return html + '</section>';
+  }
+  function vPenguasaan(h, an) {
+    var html = '<section class="glass card"><h2 class="h2"><span class="dot"></span>Penguasaan per Bab</h2>';
+    if (!h.length) return html + '<p class="empty">Selesaikan satu ujian untuk melihat bab yang sudah dan belum kamu kuasai.</p></section>';
+    if (!an.ada) return html + '<p class="empty">Ujian sebelumnya belum mencatat hasil per soal. Analisis muncul setelah ujian berikutnya selesai.</p></section>';
+    html += '<ul class="mast">';
+    an.bab.forEach(function (x) {
+      var teks = !x.n ? 'Belum ada jawaban' : (x.n < MIN_BAB ? 'Baru ' + x.n + ' jawaban (minimal ' + MIN_BAB + ' agar dinilai)' : x.n + ' jawaban, ' + x.pct + '% benar');
+      html += '<li class="mrow"><div class="mtop"><span class="mt">' + esc(x.b.judul) + '</span><span class="pill pill-' + x.st.k + '">' + x.st.t + '</span></div>' +
+        '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + x.pct + '" aria-label="Persentase benar ' + esc(x.b.judul) + '"><i style="width:' + x.pct + '%"></i></div>' +
+        '<div class="mbot"><span class="small muted">' + teks + '</span><button type="button" class="btn btn-ghost btn-sm" data-act="lat-mulai" data-b="' + x.b.id + '">Latih</button></div></li>';
+    });
+    html += '</ul><p class="note">Dihitung dari semua jawaban di riwayat ujian. Dikuasai mulai ' + BATAS_KUASAI + '% benar, Cukup mulai ' + BATAS_CUKUP + '%. Soal yang tidak sempat dijawab karena waktu habis tidak ikut dihitung.</p></section>';
+    html += daftarSoal('Soal yang Sering Salah', an.salah, 'salah', 'Belum ada soal yang sering salah. Soal baru dinilai setelah dijawab minimal ' + MIN_SOAL + ' kali.');
+    html += daftarSoal('Soal yang Selalu Benar', an.benar, 'benar', 'Belum ada soal yang dijawab benar terus. Soal baru dinilai setelah dijawab minimal ' + MIN_SOAL + ' kali.');
+    return html;
+  }
+
+  function cadanganJson() {
+    return JSON.stringify({ app: 'quizlearn', versi: 2, diekspor: new Date().toISOString(), riwayat: getHist() });
+  }
+  function pulihkan(text) {
+    var obj = parse((text || '').trim(), null);
+    var arr = Array.isArray(obj) ? obj : (obj && Array.isArray(obj.riwayat) ? obj.riwayat : null);
+    if (!arr) { toast('Teks cadangan tidak dikenali. Pastikan disalin utuh.'); return; }
+    var valid = arr.filter(validRec).map(cleanRec);
+    if (!valid.length) { toast('Tidak ada riwayat yang valid di cadangan ini.'); return; }
+    var h = getHist(), ada = {}, tambah = 0;
+    h.forEach(function (r) { ada[r.id] = true; });
+    valid.forEach(function (r) { if (!ada[r.id]) { ada[r.id] = true; h.push(r); tambah++; } });
+    h.sort(function (a, b) { return new Date(a.tanggal) - new Date(b.tanggal); });
+    setHist(h);
+    toast(tambah + ' riwayat berhasil dipulihkan.');
+    render();
+  }
+
+  /* ---------- aksi ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-act]') : null;
+    if (!t || t.disabled) return;
+    var act = t.getAttribute('data-act');
+    var a = aktif;
+
+    if (act === 'noop') return;
+    if (act === 'go') { go(t.getAttribute('data-v')); return; }
+
+    if (act === 'lat-mulai') { latMulai(t.getAttribute('data-b')); return; }
+    if (act === 'lat-jawab') {
+      var lid = lat.list[lat.i];
+      if (lat.fase !== 'jalan' || lat.ans[lid] !== undefined) return;
+      lat.ans[lid] = parseInt(t.getAttribute('data-k'), 10);
+      render(); return;
+    }
+    if (act === 'lat-prev') { if (lat.i > 0) lat.i--; render({ top: true }); return; }
+    if (act === 'lat-next') { if (lat.i < lat.list.length - 1) lat.i++; render({ top: true }); return; }
+    if (act === 'lat-ke') { lat.i = parseInt(t.getAttribute('data-i'), 10); navOpen = false; render({ top: true }); return; }
+    if (act === 'lat-akhiri') { if (latHitung().dj >= lat.list.length) { lat.fase = 'selesai'; navOpen = false; render({ top: true }); } return; }
+    if (act === 'lat-ulang') { latMulai(lat.b); return; }
+    if (act === 'lat-keluar') { lat = latBaru(); navOpen = false; render({ top: true }); return; }
+
+    if (act === 'uj-mulai') { ujMulai(); return; }
+    if (act === 'uj-ulang') { ujHasil = null; render({ top: true }); return; }
+    if (!a && act.indexOf('uj-') === 0) return;
+    if (act === 'uj-jawab') { a.answers[a.ids[a.idx]] = parseInt(t.getAttribute('data-k'), 10); confirming = false; saveAktif(); render(); return; }
+    if (act === 'uj-ke') { a.idx = parseInt(t.getAttribute('data-i'), 10); confirming = false; navOpen = false; saveAktif(); render({ top: true }); return; }
+    if (act === 'uj-ragu') { var rid = a.ids[a.idx]; if (a.answers[rid] === undefined || a.answers[rid] === null) return; if (a.flags[rid]) delete a.flags[rid]; else a.flags[rid] = true; saveAktif(); render(); return; }
+    if (act === 'calc-buka') { calcOpen = true; navOpen = false; render(); var kb = $ov.querySelector('.iconbtn'); if (kb) kb.focus(); return; }
+    if (act === 'calc-tutup') { calcOpen = false; render(); var kc = document.querySelector('[data-act="calc-buka"]'); if (kc) kc.focus(); return; }
+    if (act === 'calc-key') { cTekan(t.getAttribute('data-k')); calcUpdate(); return; }
+    if (act === 'nav-buka') { navOpen = true; calcOpen = false; render(); var cb = $ov.querySelector('.iconbtn'); if (cb) cb.focus(); return; }
+    if (act === 'nav-tutup') { navOpen = false; render(); var nb = document.querySelector('[data-act="nav-buka"]'); if (nb) nb.focus(); return; }
+    if (act === 'uj-prev') { if (a.idx > 0) a.idx--; confirming = false; saveAktif(); render({ top: true }); return; }
+    if (act === 'uj-next') { if (a.idx < a.ids.length - 1) a.idx++; confirming = false; saveAktif(); render({ top: true }); return; }
+    if (act === 'uj-akhiri') { confirming = true; render(); return; }
+    if (act === 'uj-batal') { confirming = false; render(); return; }
+    if (act === 'uj-ya') { finish(false); return; }
+
+    if (act === 'pr-salin') {
+      var json = cadanganJson();
+      var fallback = function () { cadangan = json; render(); toast('Salin teks cadangan secara manual dari kotak di bawah.'); };
+      try {
+        navigator.clipboard.writeText(json).then(function () { cadangan = null; toast('Cadangan disalin. Tempel dan simpan di catatan atau pesan ke diri sendiri.'); }, fallback);
+      } catch (err) { fallback(); }
+      return;
+    }
+    if (act === 'pr-unduh') {
+      try {
+        var blob = new Blob([cadanganJson()], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = url; link.download = 'cadangan-quizlearn.json';
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+        toast('File cadangan diunduh.');
+      } catch (err) { toast('Unduh gagal. Gunakan tombol Salin cadangan.'); }
+      return;
+    }
+    if (act === 'pr-pulihkan') { var ta = document.getElementById('imp'); pulihkan(ta ? ta.value : ''); return; }
+    if (act === 'pr-hapus') { hapusConfirm = true; render(); return; }
+    if (act === 'pr-hapus-batal') { hapusConfirm = false; render(); return; }
+    if (act === 'pr-hapus-ya') { setHist([]); hapusConfirm = false; ujHasil = null; toast('Riwayat dihapus.'); render(); return; }
+  });
+
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'impFile' && e.target.files && e.target.files[0]) {
+      var rd = new FileReader();
+      rd.onload = function () { pulihkan(String(rd.result || '')); };
+      rd.onerror = function () { toast('File tidak bisa dibaca.'); };
+      rd.readAsText(e.target.files[0]);
+    }
+  });
+
+  /* ---------- layar sambutan ---------- */
+  function welcome() {
+    var el = document.createElement('div');
+    el.id = 'welcome'; el.className = 'wel'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-labelledby', 'welt');
+    el.innerHTML = '<div class="wel-blur"></div><div class="wel-body"><div class="logo" aria-hidden="true">' + ic('bolt', 22) + '</div><h1 class="wel-t" id="welt">Are you ready?</h1><button type="button" class="btn wel-btn" id="welbtn">I am ready!</button></div>';
+    document.body.appendChild(el);
+    var inertEls = [document.querySelector('.app'), document.getElementById('dock')];
+    inertEls.forEach(function (x) { if (x) x.setAttribute('inert', ''); });
+    document.body.style.overflow = 'hidden';
+    var btn = document.getElementById('welbtn'), blur = el.querySelector('.wel-blur'), body = el.querySelector('.wel-body');
+    btn.focus();
+    var busy = false;
+    function selesai() {
+      if (el.parentNode) el.parentNode.removeChild(el);
+      inertEls.forEach(function (x) { if (x) x.removeAttribute('inert'); });
+      document.body.style.overflow = navOpen ? 'hidden' : '';
+      try { $main.focus({ preventScroll: true }); } catch (e) {}
+    }
+    btn.addEventListener('click', function () {
+      if (busy) return; busy = true;
+      var r = btn.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      var W = window.innerWidth, H = window.innerHeight;
+      var dx = Math.max(cx, W - cx), dy = Math.max(cy, H - cy);
+      var soft = 160, total = Math.sqrt(dx * dx + dy * dy) + soft;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      body.classList.add('out');
+      if (reduce || !window.requestAnimationFrame) { el.classList.add('fade'); setTimeout(selesai, 260); return; }
+      var dur = 1100, t0 = null;
+      function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+      function frame(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur), R = ease(p) * total;
+        var s = Math.min(soft, R);
+        var m = 'radial-gradient(circle at ' + cx + 'px ' + cy + 'px, transparent ' + R + 'px, #000 ' + (R + s) + 'px)';
+        blur.style.webkitMaskImage = m; blur.style.maskImage = m;
+        if (p < 1) requestAnimationFrame(frame); else selesai();
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
+  /* ---------- mulai ---------- */
+  if (aktif && aktif.endAt <= Date.now()) {
+    finish(true);
+    toast('Waktu ujian sebelumnya sudah habis. Hasil tersimpan di Progres.');
+  } else {
+    render();
+  }
+  if (!aktif) welcome();   // ujian yang sedang berjalan tidak ditunda oleh layar sambutan
+})()
+});;
+
+</script>
+
 </body></html>
