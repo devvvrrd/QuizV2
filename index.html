@@ -2236,6 +2236,8 @@ window.QL_DATA = {
   function loadAktif() {
     var a = parse(sget(K_AKTIF), null);
     if (!a || !Array.isArray(a.ids) || !a.ids.length || typeof a.endAt !== 'number' || typeof a.startAt !== 'number') return null;
+    // Buang sesi lama jika jumlah soal ujian telah diubah pada konfigurasi.
+    if (a.ids.length !== Math.min(D.pengaturan.ujianJumlahSoal, ALL.length)) { sdel(K_AKTIF); return null; }
     for (var i = 0; i < a.ids.length; i++) { if (!Q[a.ids[i]]) return null; }
     a.answers = (a.answers && typeof a.answers === 'object') ? a.answers : {};
     var fl = {};
