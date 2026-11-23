@@ -1,0 +1,1227 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#5A1A38}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Quiz Manajemen Strategik</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* QuizLearn: tema soft pink-putih-abu dengan efek kaca (glass).
+   Tata letak: satu kolom sempit seperti aplikasi HP, kartu kaca di atas latar abu bergradasi,
+   navigasi melayang di bawah. Semua warna diatur lewat variabel di bawah ini. */
+:root{
+  --bg:#E8E8E8;
+  --ink:#5A1A38;            /* warna teks: rose tua agar terbaca di atas putih/pink */
+  --ink-2:#4F4F4F;
+  --ink-deep:#3B0F25;       /* teks di atas abu #8C8C8C (tombol ragu-ragu) */
+  --on-pink-2:#7A2E4D;      /* teks sekunder di atas pink */
+  --pink:#F7C3D5;           /* soft pink utama (isi tombol, kartu, item terpilih) */
+  --pink-2:#F0A8C2;         /* soft pink sedikit lebih dalam (ujung gradasi) */
+  --pink-line:#E07BA3;      /* soft pink untuk garis, border, fokus, grafik */
+  --glass:rgba(255,255,255,.52);
+  --glass-hi:rgba(255,255,255,.72);
+  --edge:rgba(255,255,255,.82);
+  --track:rgba(224,123,163,.22);
+  --shadow:0 8px 24px rgba(214,100,145,.07), inset 0 1px 0 rgba(255,255,255,.9);
+  --dark-1:#F7C3D5;
+  --dark-2:#F0A8C2;
+  --font:'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font);
+  font-size:14px;
+  line-height:1.5;
+}
+button,input,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--pink-line);outline-offset:2px}
+.on-dark :focus-visible{outline-color:var(--ink)}
+
+/* latar */
+.bg{
+  position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(320px 320px at 100% 0%, #fff 0%, rgba(255,255,255,0) 70%),
+    radial-gradient(320px 320px at 0% 42%, rgba(240,150,185,.42) 0%, rgba(240,150,185,0) 70%),
+    radial-gradient(340px 340px at 100% 86%, rgba(235,135,175,.38) 0%, rgba(235,135,175,0) 70%),
+    linear-gradient(165deg,#F6F6F6 0%,#DCDCDC 48%,#F0F0F0 100%);
+}
+
+/* kerangka */
+.app{
+  max-width:520px;margin:0 auto;
+  padding-block:20px 120px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  display:flex;flex-direction:column;gap:14px;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{
+  width:40px;height:40px;border-radius:12px;background:linear-gradient(180deg,var(--pink),var(--pink-2));color:var(--ink);
+  display:flex;align-items:center;justify-content:center;flex:none;
+}
+.brand-name{font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.brand-sub{font-size:12px;color:var(--ink-2)}
+main{display:flex;flex-direction:column;gap:14px;min-width:0;outline:none}
+
+h1.h1{margin:6px 0 0;font-size:27px;font-weight:800;letter-spacing:-.025em;line-height:1.15;text-wrap:balance}
+h2.h2{margin:0;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+h3.h3{margin:0;font-size:15px;font-weight:700}
+.lead{margin:0;color:var(--ink-2);font-size:14px;line-height:1.5}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--pink-line);flex:none}
+.muted{color:var(--ink-2)}
+.small{font-size:12px}
+
+/* kaca */
+.glass{
+  background:var(--glass);
+  -webkit-backdrop-filter:blur(20px) saturate(125%);
+  backdrop-filter:blur(20px) saturate(125%);
+  border:1px solid var(--edge);
+  box-shadow:var(--shadow);
+}
+.card{border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+
+/* tombol */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:0 20px;border-radius:23px;
+  border:1px solid rgba(255,255,255,.18);
+  background:linear-gradient(180deg,var(--dark-1),var(--dark-2));
+  color:var(--ink);font-weight:700;
+  box-shadow:0 8px 18px rgba(214,100,145,.30), inset 0 1px 0 rgba(255,255,255,.55);
+  text-align:center;
+}
+.btn[disabled]{background:rgba(224,123,163,.18);color:#5A5A5A;box-shadow:none;border-color:transparent;cursor:not-allowed}
+.btn-ghost{
+  background:var(--glass-hi);color:var(--ink);border:1px solid var(--edge);
+  box-shadow:0 4px 12px rgba(214,100,145,.06), inset 0 1px 0 rgba(255,255,255,.9);
+}
+.btn-ghost[disabled]{background:rgba(255,255,255,.35);color:#5A5A5A}
+.btn-light{background:rgba(255,255,255,.94);color:var(--ink);border-color:rgba(255,255,255,.9);box-shadow:none}
+.btn-sm{min-height:40px;padding:0 16px;font-size:13px}
+.btn-block{width:100%}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>.btn{flex:1 1 120px}
+.back{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:6px;min-height:40px;
+  padding:0 14px 0 10px;border-radius:20px;border:1px solid var(--edge);background:var(--glass-hi);font-weight:600;font-size:13px;
+}
+
+/* progress */
+.bar{height:8px;border-radius:4px;background:var(--track);overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--pink-2),var(--pink-line))}
+
+/* statistik */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.stat{border-radius:20px;padding:12px 10px;display:flex;flex-direction:column;gap:6px}
+.stat svg{display:block}
+.stat b{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:11px;line-height:1.3;color:var(--ink-2)}
+
+/* kartu gelap */
+.dark{
+  position:relative;overflow:hidden;color:var(--ink);
+  background:linear-gradient(135deg,rgba(247,195,213,.96),rgba(240,168,194,.98));
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 14px 32px rgba(214,100,145,.28), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.dark::before{
+  content:"";position:absolute;top:-70px;right:-50px;width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 70%);pointer-events:none;
+}
+.dark>*{position:relative}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--on-pink-2)}
+.dark .meta{color:var(--on-pink-2);font-size:13px}
+.cta{flex-direction:row;align-items:center;gap:14px;flex-wrap:wrap}
+.cta .grow{flex:1 1 160px;display:flex;flex-direction:column;gap:3px}
+.cta .t{font-size:17px;font-weight:700;line-height:1.25}
+
+/* daftar bab */
+.listbtn{
+  width:100%;text-align:left;flex-direction:row;align-items:center;gap:12px;color:var(--ink);
+}
+.listbtn .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.listbtn .tt{font-weight:700;font-size:15px;line-height:1.3}
+.listbtn .ds{font-size:12px;color:var(--ink-2)}
+.num{
+  flex:none;width:44px;height:44px;border-radius:14px;border:1px solid var(--edge);
+  background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(210,210,210,.6));
+  display:flex;align-items:center;justify-content:center;font-weight:800;
+  box-shadow:0 6px 14px rgba(214,100,145,.08), inset 0 1px 0 #fff;
+}
+
+.note{font-size:12px;color:var(--ink-2);line-height:1.5}
+
+/* soal */
+.qhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:0 12px;border-radius:14px;
+  background:var(--glass-hi);border:1px solid var(--edge);font-size:12px;font-weight:600;
+}
+.qtext{margin:0;font-size:17px;font-weight:700;line-height:1.4;text-wrap:pretty}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;min-height:52px;padding:12px 14px;border-radius:18px;
+  background:var(--glass-hi);border:1px solid var(--edge);
+  box-shadow:0 4px 12px rgba(214,100,145,.05), inset 0 1px 0 rgba(255,255,255,.9);
+  line-height:1.4;
+}
+.opt .lt{
+  flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--pink-line);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin:0;
+}
+.opt .tx{flex:1;min-width:0}
+.opt .tag{display:block;margin-top:4px;font-size:12px;font-weight:700}
+.opt.sel{background:var(--pink);color:var(--ink);border-color:var(--pink-line)}
+.opt.sel .lt{border-color:#fff;background:#fff;color:var(--ink)}
+.opt.ok{background:var(--pink);color:var(--ink);border-color:var(--pink-line)}
+.opt.ok .lt{border-color:#fff;background:#fff;color:var(--ink)}
+.opt.bad{background:rgba(255,255,255,.9);border:2px dashed var(--pink-line)}
+.opt.bad .tx>span:first-child{text-decoration:line-through;text-decoration-thickness:1.5px}
+.opt.dim{opacity:.55}
+.opt[disabled]{cursor:default}
+.og{display:flex;flex-direction:column;gap:8px}
+.ex{margin:0 4px;border-radius:14px;padding:10px 14px;background:var(--glass-hi);border:1px solid var(--edge);display:flex;flex-direction:column;gap:3px;font-size:13px;line-height:1.5}
+.ex.ok{border:1.5px solid var(--pink-line)}
+.ex.bad{border:1.5px dashed var(--pink-line)}
+.ex b{display:flex;align-items:center;gap:6px;font-size:13px}
+.ex p{margin:0}
+.fb{border-radius:18px;padding:14px;background:var(--glass-hi);border:1px solid var(--edge);display:flex;flex-direction:column;gap:4px}
+.fb b{font-size:15px;display:flex;align-items:center;gap:8px}
+.fb p{margin:0;line-height:1.55}
+
+/* ujian */
+.timer{
+  margin-left:auto;background:var(--pink);color:var(--ink);border-color:var(--pink-line);font-weight:700;font-variant-numeric:tabular-nums;
+}
+.timer[data-low="1"]{background:#fff;color:var(--ink);text-decoration:underline}
+.chip-btn{position:relative;cursor:pointer;color:var(--ink)}
+.chip-btn::after{content:"";position:absolute;inset:-8px -4px}
+.ctl{display:grid;grid-template-columns:56px minmax(0,1fr) 56px;gap:10px}
+.ctl .btn{padding:0;min-width:0}
+.btn-step{line-height:1}
+.btn-step svg{display:block;flex:none}
+.btn-ragu[aria-pressed="true"]{background:var(--pink);color:var(--ink);border-color:var(--pink-line)}
+.nb{position:relative}
+.nb.ragu{background:#8C8C8C;border-color:#8C8C8C;color:var(--ink-deep)}
+.nb.ragu .l{color:var(--ink-deep)}
+.nb .n{font-size:15px}
+#overlay:empty{display:none}
+.ov{
+  position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
+  padding:16px max(16px, env(safe-area-inset-right, 0px)) 16px max(16px, env(safe-area-inset-left, 0px));
+  background:rgba(240,160,195,.38);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+}
+.sheet{
+  width:100%;max-width:440px;max-height:calc(100% - 8px);overflow:auto;border-radius:24px;padding:16px;
+  display:flex;flex-direction:column;gap:12px;
+  background:rgba(255,255,255,.9);border:1px solid var(--edge);box-shadow:0 24px 60px rgba(214,100,145,.28);
+}
+.sheet-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.iconbtn{
+  width:40px;height:40px;border-radius:20px;border:1px solid var(--edge);background:var(--glass-hi);color:var(--ink);
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;
+}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.lg{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:7px;border:1px solid rgba(224,123,163,.6);background:#fff;font-style:normal;font-weight:800;font-size:11px;color:var(--ink)}
+.lg-done{background:var(--pink);border-color:var(--pink-line);color:var(--ink)}
+.lg-now{border:2.5px solid var(--pink-line)}
+.lg-ragu{background:#8C8C8C;border-color:#8C8C8C;color:var(--ink-deep)}
+.nav-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:8px}
+.nb{
+  min-height:54px;border-radius:14px;border:1px solid var(--edge);background:var(--glass-hi);color:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2;padding:0;
+  font-variant-numeric:tabular-nums;
+}
+.nb .n{font-size:15px;font-weight:800}
+.nb .l{font-size:12px;font-weight:700;color:var(--ink-2)}
+.nb.done{background:var(--pink);border-color:var(--pink-line);color:var(--ink)}
+.nb.done .l{color:var(--ink)}
+.chip-ico{padding:0;width:36px;justify-content:center}
+.chip-ico svg{display:block}
+.cdisp{border-radius:18px;padding:12px 16px;background:rgba(255,255,255,.7);border:1px solid var(--edge);display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;gap:2px;min-height:84px;overflow:hidden}
+.cdisp .ce{font-size:13px;color:var(--ink-2);min-height:20px;max-width:100%;white-space:nowrap;overflow:hidden}
+.cdisp .cd{font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.15;max-width:100%;white-space:nowrap;overflow:hidden}
+.ckeys{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.ck{height:52px;border-radius:16px;border:1px solid var(--edge);background:var(--glass-hi);color:var(--ink);font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0;touch-action:manipulation;box-shadow:0 4px 12px rgba(214,100,145,.05), inset 0 1px 0 rgba(255,255,255,.9)}
+.ck svg{display:block}
+.ck.fn{background:rgba(224,123,163,.18)}
+.ck.op{background:linear-gradient(180deg,var(--dark-1),var(--dark-2));color:var(--ink);border-color:rgba(255,255,255,.18)}
+.ck:active{transform:scale(.96)}
+.nb.bad{background:rgba(255,255,255,.9);border:2px dashed var(--pink-line)}
+.sheet-h h2.h2{font-size:19px}
+.nb.now{border:3px solid var(--pink-line);box-shadow:0 0 0 2px rgba(255,255,255,.9)}
+.nb.done.now{box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--pink-line)}
+.confirm{border-radius:18px;padding:14px;background:rgba(255,255,255,.9);border:2px solid var(--pink-line);display:flex;flex-direction:column;gap:10px}
+.confirm p{margin:0;line-height:1.5}
+ol.rules,ul.rules{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;line-height:1.5}
+
+/* hasil */
+.score{font-size:64px;font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.score small{font-size:20px;font-weight:700;color:var(--ink-2);letter-spacing:0}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.two .glass{border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:2px}
+.two b{font-size:26px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+.two span{font-size:12px;color:var(--ink-2)}
+
+/* riwayat */
+.hist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.hist li{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;background:var(--glass-hi);border:1px solid var(--edge);
+}
+.hist .hn{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.hist .hn b{font-size:13px}
+.hist .hn span{font-size:12px;color:var(--ink-2)}
+.hist .nv{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+/* penguasaan */
+.mast,.qlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.mrow{display:flex;flex-direction:column;gap:8px;padding:12px 14px;border-radius:18px;background:var(--glass-hi);border:1px solid var(--edge)}
+.mtop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.mt{font-weight:700;font-size:14px;line-height:1.35;min-width:0}
+.mbot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pill{
+  flex:none;display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:12px;
+  font-size:11px;font-weight:700;white-space:nowrap;border:1.5px solid var(--pink-line);background:#fff;color:var(--ink);
+}
+.pill-kuasai{background:var(--pink);color:var(--ink)}
+.pill-belum{border-style:dashed}
+.pill-data{border-color:rgba(224,123,163,.6);color:var(--ink-2);font-weight:600}
+.qlist li{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:18px;background:var(--glass-hi);border:1px solid var(--edge)}
+.qt{font-weight:600;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.qm{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+textarea{
+  width:100%;min-height:96px;resize:vertical;padding:12px;border-radius:16px;border:1px solid var(--edge);
+  background:rgba(255,255,255,.85);line-height:1.4;
+}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.filebtn:focus-within{outline:2px solid var(--pink-line);outline-offset:2px}
+.empty{margin:0;padding:18px 8px;text-align:center;color:var(--ink-2);line-height:1.5}
+
+/* grafik */
+.chart{display:block;width:100%;height:auto}
+.chart .gl{stroke:rgba(224,123,163,.25);stroke-width:1}
+.chart text{font-family:var(--font);font-size:10px;fill:var(--ink-2)}
+.chart .ln{fill:none;stroke:var(--pink-line);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.chart .pt{fill:#fff;stroke:var(--pink-line);stroke-width:2.5}
+.chart .pe{fill:var(--pink-line);stroke:#fff;stroke-width:2}
+.chart .tip{fill:var(--pink-2)}
+.chart text.tipt{fill:var(--ink);font-weight:700;font-size:11px}
+
+/* navigasi bawah */
+.dock{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;
+  padding-left:max(14px, env(safe-area-inset-left, 0px));
+  padding-right:max(14px, env(safe-area-inset-right, 0px));
+  padding-bottom:calc(14px + env(safe-area-inset-bottom, 0px));
+  pointer-events:none;
+}
+.dock-bar{
+  pointer-events:auto;max-width:520px;margin:0 auto;height:68px;padding:0 8px;border-radius:32px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,.62);
+  -webkit-backdrop-filter:blur(24px) saturate(130%);backdrop-filter:blur(24px) saturate(130%);
+  border:1px solid rgba(255,255,255,.85);
+  box-shadow:0 12px 32px rgba(214,100,145,.14), inset 0 1px 0 rgba(255,255,255,.95);
+}
+.dock button{
+  flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:54px;margin:0 2px;padding:0;
+  border:0;border-radius:24px;background:transparent;color:var(--ink-2);font-size:11px;font-weight:600;
+}
+.dock button[aria-current="page"]{background:var(--pink);color:var(--ink);font-weight:700}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom, 0px));transform:translate(-50%,12px);z-index:30;
+  max-width:min(440px, calc(100vw - 32px));padding:12px 18px;border-radius:18px;background:var(--pink-2);color:var(--ink);
+  font-weight:600;font-size:13px;line-height:1.4;text-align:center;opacity:0;pointer-events:none;
+  transition:opacity .2s, transform .2s;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.wel{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
+  padding:24px max(24px, env(safe-area-inset-right, 0px)) 24px max(24px, env(safe-area-inset-left, 0px))}
+.wel.fade{opacity:0;transition:opacity .25s ease}
+.wel-blur{position:absolute;inset:0;background:rgba(240,240,240,.42);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.wel-body{position:relative;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center;
+  animation:welIn .7s cubic-bezier(.22,1,.36,1) backwards;transition:opacity .35s ease, transform .35s ease}
+.wel-body.out{opacity:0;transform:scale(.96);pointer-events:none}
+.wel-t{margin:0;font-size:36px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.wel-btn{min-height:56px;padding:0 36px;font-size:17px;border-radius:28px}
+@keyframes welIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (max-width:360px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .score{font-size:52px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}
+
+</style>
+<div class="bg" aria-hidden="true"></div>
+
+<div class="app">
+  <header class="brand">
+    <div class="logo" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/></svg>
+    </div>
+    <div>
+      <div class="brand-name">QuizLearn</div>
+      <div class="brand-sub" id="mapel"></div>
+    </div>
+  </header>
+  <main id="main" tabindex="-1"></main>
+</div>
+
+<nav class="dock" aria-label="Navigasi utama"><div class="dock-bar" id="dock"></div></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript>Website ini membutuhkan JavaScript. Aktifkan JavaScript di browser Anda.</noscript>
+<script>(async()=>{ window.QL_CAN_DOWNLOAD = false; })().catch(e=>{document.body.innerHTML="<pre>Gagal memuat bank soal: "+String(e)+"</pre>";});</script>
+<script>
+/*
+  DATA SOAL
+  Edit file ini untuk mengganti isi website. Tidak perlu mengubah file lain.
+
+  Aturan penulisan:
+  - "kunci" adalah nomor pilihan jawaban yang benar, dimulai dari 0
+    (0 = pilihan A, 1 = pilihan B, 2 = pilihan C, 3 = pilihan D).
+  - Setiap soal harus punya "id" yang berbeda.
+  - Setiap soal wajib punya tepat 4 pilihan.
+  - "jelas" adalah penjelasan jawaban yang benar. "jelasOpsi" (opsional) berisi 4 penjelasan,
+    satu per pilihan. Yang dipakai hanya penjelasan pilihan yang salah (isi pilihan benar boleh dikosongkan).
+  - Tanda kutip di dalam teks sebaiknya memakai tanda ' atau " yang diberi garis miring: \"
+*/
+window.QL_DATA = await (async()=>{const raw=atob("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");const bytes=Uint8Array.from(raw,c=>c.charCodeAt(0));const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));return JSON.parse(await new Response(stream).text());})();
+
+</script>
+<script>
+/* QuizLearn: logika website. Tidak perlu diubah untuk mengganti soal (edit data.js). */
+(function () {
+  'use strict';
+
+  var D = window.QL_DATA;
+  // Jika beberapa quiz dipasang di domain yang sama, isi "kunciPenyimpanan" di data.js
+  // (misalnya "akmen") agar riwayat tiap mata kuliah tidak tercampur.
+  var PFX = D.kunciPenyimpanan ? 'ql_' + D.kunciPenyimpanan + '_' : 'ql_';
+  var K_RIWAYAT = PFX + 'riwayat_v1';
+  var K_AKTIF = PFX + 'ujian_aktif_v1';
+  var VIEWS = ['beranda', 'latihan', 'ujian', 'progres'];
+  // Batas analisis penguasaan (bisa diubah di data.js > pengaturan > penguasaan)
+  var PG = (D.pengaturan && D.pengaturan.penguasaan) || {};
+  var BATAS_KUASAI = PG.batasDikuasai || 80;   // persen benar minimal untuk "Dikuasai"
+  var BATAS_CUKUP = PG.batasCukup || 60;       // persen benar minimal untuk "Cukup"
+  var MIN_BAB = PG.minJawabanBab || 5;         // jumlah jawaban minimal agar bab dinilai
+  var MIN_SOAL = PG.minJawabanSoal || 2;       // soal dinilai setelah dijawab minimal sekian kali
+  var BATAS_SALAH = PG.batasSoalSalah || 50;   // persen salah minimal agar soal masuk "sering salah"
+
+  /* ---------- penyimpanan (aman jika localStorage diblokir) ---------- */
+  var mem = {};
+  function sget(k) {
+    try { var v = localStorage.getItem(k); return v === null ? (mem[k] || null) : v; }
+    catch (e) { return mem[k] || null; }
+  }
+  function sset(k, v) { mem[k] = v; try { localStorage.setItem(k, v); } catch (e) {} }
+  function sdel(k) { delete mem[k]; try { localStorage.removeItem(k); } catch (e) {} }
+  function parse(s, fb) { try { return s ? JSON.parse(s) : fb; } catch (e) { return fb; } }
+
+  /* ---------- data soal ---------- */
+  var Q = {};       // id -> soal
+  var ALL = [];     // semua id soal berurutan dari bab pertama
+  var BAB = {};     // id bab -> bab
+  D.bab.forEach(function (b) {
+    BAB[b.id] = b;
+    b.soal.forEach(function (s) {
+      s.babId = b.id; s.babJudul = b.judul;
+      Q[s.id] = s; ALL.push(s.id);
+    });
+  });
+
+  /* ---------- util ---------- */
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fmtNum(n) { return Number(n).toLocaleString('id-ID', { maximumFractionDigits: 1 }); }
+  function fmtTime(sec) {
+    sec = Math.max(0, sec);
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  function fmtDate(iso) {
+    try {
+      return new Date(iso).toLocaleString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    } catch (e) { return iso; }
+  }
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  var LET = ['A', 'B', 'C', 'D'];
+
+  var P = {
+    home: '<path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-6h4v6"/>',
+    book: '<path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5z"/><path d="M12 6v13.5"/>',
+    pencil: '<path d="M4 20l1-4L16 5a2.1 2.1 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/>',
+    trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v2a3 3 0 0 0 4 2.8M16 6h4v2a3 3 0 0 1-4 2.8"/><path d="M12 13v4M8.5 20h7M10 17h4"/>',
+    chart: '<rect x="4" y="12" width="4" height="8" rx="1"/><rect x="10" y="5" width="4" height="15" rx="1"/><rect x="16" y="9" width="4" height="11" rx="1"/>',
+    clip: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 12h6M9 16h4"/>',
+    star: '<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9 6.8 19.7l1-5.9L3.5 9.7l5.9-.8z"/>',
+    target: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 12h.01"/>',
+    chev: '<path d="M9 6l6 6-6 6"/>',
+    left: '<path d="M15 6l-6 6 6 6"/>',
+    arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    x: '<path d="M6 6l12 12M18 6L6 18"/>',
+    flag: '<path d="M6 21V4"/><path d="M6 5h11l-2 4 2 4H6"/>',
+    grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+    bolt: '<path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/>',
+    calc: '<rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7.5h7"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/>',
+    bksp: '<path d="M21 5H9l-6 7 6 7h12z"/><path d="M12.5 9.5l5 5M17.5 9.5l-5 5"/>',
+    clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>'
+  };
+  function ic(n, s) {
+    s = s || 22;
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + P[n] + '</svg>';
+  }
+
+  /* ---------- riwayat ujian ---------- */
+  function validRec(x) {
+    return x && typeof x === 'object' && typeof x.id === 'string' && x.id.length > 0 && x.id.length <= 40 &&
+      typeof x.tanggal === 'string' && !isNaN(new Date(x.tanggal).getTime()) &&
+      Number.isInteger(x.benar) && Number.isInteger(x.salah) && x.benar >= 0 && x.salah >= 0 && x.benar + x.salah > 0;
+  }
+  function cleanRec(x) {
+    var total = x.benar + x.salah;
+    return {
+      id: x.id,
+      tanggal: new Date(x.tanggal).toISOString(),
+      benar: x.benar, salah: x.salah, total: total,
+      nilai: Math.round(x.benar / total * 1000) / 10,
+      durasi: Number.isFinite(x.durasi) && x.durasi >= 0 ? Math.round(x.durasi) : 0,
+      waktuHabis: !!x.waktuHabis,
+      detail: cleanDetail(x.detail)
+    };
+  }
+  // detail: id soal -> 1 (benar), 0 (salah), -1 (tidak sempat dijawab karena waktu habis)
+  function cleanDetail(d) {
+    var o = {}, n = 0;
+    if (!d || typeof d !== 'object' || Array.isArray(d)) return o;
+    Object.keys(d).forEach(function (k) {
+      if (n < 1000 && k.length <= 40 && k !== '__proto__' && (d[k] === 1 || d[k] === 0 || d[k] === -1)) { o[k] = d[k]; n++; }
+    });
+    return o;
+  }
+  function hasQ(id) { return Object.prototype.hasOwnProperty.call(Q, id); }
+  function getHist() {
+    var r = parse(sget(K_RIWAYAT), []);
+    return Array.isArray(r) ? r.filter(validRec).map(cleanRec) : [];
+  }
+  function setHist(h) { sset(K_RIWAYAT, JSON.stringify(h)); }
+  function stats(h) {
+    if (!h.length) return { n: 0, avg: null, max: null, last: null };
+    var sum = 0, max = 0;
+    h.forEach(function (r) { sum += r.nilai; if (r.nilai > max) max = r.nilai; });
+    return { n: h.length, avg: Math.round(sum / h.length * 10) / 10, max: max, last: h[h.length - 1].nilai };
+  }
+
+  /* ---------- analisis penguasaan (dari riwayat ujian) ---------- */
+  function statusBab(n, pct) {
+    if (n < MIN_BAB) return { k: 'data', t: 'Belum cukup data' };
+    if (pct >= BATAS_KUASAI) return { k: 'kuasai', t: 'Dikuasai' };
+    if (pct >= BATAS_CUKUP) return { k: 'cukup', t: 'Cukup' };
+    return { k: 'belum', t: 'Belum dikuasai' };
+  }
+  function analisis(h) {
+    var perSoal = {}, perBab = {}, ada = false;
+    D.bab.forEach(function (b) { perBab[b.id] = { b: b, benar: 0, salah: 0 }; });
+    h.forEach(function (r) {
+      Object.keys(r.detail || {}).forEach(function (id) {
+        var c = r.detail[id];
+        if (!hasQ(id) || c === -1) return;   // soal yang tidak sempat dijawab tidak dihitung
+        ada = true;
+        var s = perSoal[id] || (perSoal[id] = { id: id, benar: 0, salah: 0 });
+        var bb = perBab[Q[id].babId];
+        if (c === 1) { s.benar++; bb.benar++; } else { s.salah++; bb.salah++; }
+      });
+    });
+    var bab = D.bab.map(function (b) {
+      var x = perBab[b.id], n = x.benar + x.salah, pct = n ? Math.round(x.benar / n * 100) : 0;
+      return { b: b, n: n, pct: pct, st: statusBab(n, pct) };
+    });
+    var salah = [], benar = [];
+    ALL.forEach(function (id) {
+      var s = perSoal[id];
+      if (!s) return;
+      var n = s.benar + s.salah;
+      if (n < MIN_SOAL) return;
+      if (s.salah === 0) benar.push(s);
+      else if (s.salah / n * 100 >= BATAS_SALAH) salah.push(s);
+    });
+    salah.sort(function (a, b) {
+      return (b.salah / (b.benar + b.salah)) - (a.salah / (a.benar + a.salah)) || b.salah - a.salah;
+    });
+    return { ada: ada, bab: bab, salah: salah, benar: benar };
+  }
+
+  /* ---------- status aplikasi ---------- */
+  var view = readHash();
+  var lat = { fase: 'awal', list: [], i: 0, ans: {}, b: 'semua', label: '' };
+  var aktif = loadAktif();      // ujian yang sedang berjalan
+  var ujHasil = null;           // hasil ujian terakhir (ditampilkan sekali)
+  var navOpen = false;          // pop-up navigasi nomor soal
+  var calcOpen = false;         // pop-up kalkulator
+  var calc = null;              // status kalkulator (diisi di bagian kalkulator)
+  var confirming = false;       // panel konfirmasi akhiri ujian
+  var hapusConfirm = false;     // panel konfirmasi hapus riwayat
+  var cadangan = null;          // teks cadangan untuk disalin manual
+  var lastView = null;
+
+  function readHash() {
+    var h = (location.hash || '').replace('#', '');
+    return VIEWS.indexOf(h) >= 0 ? h : 'beranda';
+  }
+  function loadAktif() {
+    var a = parse(sget(K_AKTIF), null);
+    if (!a || !Array.isArray(a.ids) || !a.ids.length || typeof a.endAt !== 'number' || typeof a.startAt !== 'number') return null;
+    // Buang sesi lama jika jumlah soal ujian telah diubah pada konfigurasi.
+    if (a.ids.length !== Math.min(D.pengaturan.ujianJumlahSoal, ALL.length)) { sdel(K_AKTIF); return null; }
+    for (var i = 0; i < a.ids.length; i++) { if (!Q[a.ids[i]]) return null; }
+    a.answers = (a.answers && typeof a.answers === 'object') ? a.answers : {};
+    var fl = {};
+    if (a.flags && typeof a.flags === 'object') { a.ids.forEach(function (id) { if (a.flags[id] === true && a.answers[id] !== undefined && a.answers[id] !== null) fl[id] = true; }); }
+    a.flags = fl;
+    a.idx = Math.min(Math.max(0, a.idx | 0), a.ids.length - 1);
+    return a;
+  }
+  function saveAktif() { sset(K_AKTIF, JSON.stringify(aktif)); }
+
+  /* ---------- tampilan ---------- */
+  var $main = document.getElementById('main');
+  var $dock = document.getElementById('dock');
+  var $toast = document.getElementById('toast');
+  var $ov = document.createElement('div'); $ov.id = 'overlay'; document.body.appendChild($ov);
+  var toastTimer = null;
+  document.getElementById('mapel').textContent = D.mapel;
+
+  function toast(msg) {
+    $toast.textContent = msg;
+    $toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { $toast.classList.remove('show'); }, 3800);
+  }
+
+  function renderDock() {
+    var items = [['beranda', 'Beranda', 'home'], ['latihan', 'Latihan', 'pencil'], ['ujian', 'Ujian', 'trophy'], ['progres', 'Progres', 'chart']];
+    $dock.innerHTML = items.map(function (it) {
+      return '<button type="button" data-act="go" data-v="' + it[0] + '"' + (view === it[0] ? ' aria-current="page"' : '') + '>' + ic(it[2]) + it[1] + '</button>';
+    }).join('');
+  }
+
+  function render(opts) {
+    var html;
+    if (view === 'latihan') html = vLatihan();
+    else if (view === 'ujian') html = vUjian();
+    else if (view === 'progres') html = vProgres();
+    else html = vBeranda();
+    var ovOn = (navOpen || calcOpen) && ((view === 'ujian' && aktif && !ujHasil) || (view === 'latihan' && lat.fase === 'jalan'));
+    if (!ovOn) { navOpen = false; calcOpen = false; }
+    $main.innerHTML = html;
+    $ov.innerHTML = ovOn ? (calcOpen ? vCalcPopup() : (view === 'latihan' ? vLatNavPopup() : vNavPopup())) : '';
+    document.body.style.overflow = ovOn ? 'hidden' : '';
+    renderDock();
+    document.title = 'QuizLearn - ' + D.mapel;
+    if (lastView !== view || (opts && opts.top)) {
+      window.scrollTo(0, 0);
+      if (lastView !== view) { try { $main.focus({ preventScroll: true }); } catch (e) {} }
+    }
+    lastView = view;
+    tick();
+  }
+
+  function go(v) {
+    if (location.hash === '#' + v) { view = v; render(); }
+    else { location.hash = v; }
+  }
+  window.addEventListener('hashchange', function () { view = readHash(); render(); });
+
+  /* ----- grafik nilai ----- */
+  function chart(h) {
+    var d = h.slice(-7), n = d.length;
+    if (!n) return '<p class="empty">Belum ada data. Selesaikan satu ujian untuk melihat grafik nilai.</p>';
+    var x0 = 40, x1 = 292, base = 130;
+    var pts = d.map(function (r, i) {
+      return { x: n === 1 ? 166 : x0 + i * (x1 - x0) / (n - 1), y: base - r.nilai, r: r, no: h.length - n + i + 1 };
+    });
+    var last = pts[n - 1];
+    var s = '<svg class="chart" viewBox="0 0 320 152" role="img" aria-label="Grafik nilai ujian terakhir, nilai terbaru ' + fmtNum(last.r.nilai) + '">';
+    s += '<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E07BA3" stop-opacity="0.30"/><stop offset="1" stop-color="#E07BA3" stop-opacity="0"/></linearGradient></defs>';
+    [100, 75, 50, 25, 0].forEach(function (v) {
+      s += '<line class="gl" x1="30" y1="' + (base - v) + '" x2="312" y2="' + (base - v) + '"/>';
+      s += '<text x="24" y="' + (base - v + 3) + '" text-anchor="end">' + v + '</text>';
+    });
+    if (n > 1) {
+      s += '<path d="M' + pts[0].x + ',' + base + ' ' + pts.map(function (p) { return 'L' + p.x + ',' + p.y; }).join(' ') + ' L' + last.x + ',' + base + ' Z" fill="url(#ag)"/>';
+      s += '<polyline class="ln" points="' + pts.map(function (p) { return p.x + ',' + p.y; }).join(' ') + '"/>';
+    }
+    pts.forEach(function (p, i) {
+      if (i < n - 1) s += '<circle class="pt" cx="' + p.x + '" cy="' + p.y + '" r="4.5"/>';
+    });
+    s += '<circle class="pe" cx="' + last.x + '" cy="' + last.y + '" r="5.5"/>';
+    var ty = Math.max(2, last.y - 28), tx = Math.min(last.x - 20, 278);
+    s += '<rect class="tip" x="' + tx + '" y="' + ty + '" width="40" height="18" rx="9"/>';
+    s += '<text class="tipt" x="' + (tx + 20) + '" y="' + (ty + 13) + '" text-anchor="middle">' + fmtNum(last.r.nilai) + '</text>';
+    pts.forEach(function (p) { s += '<text x="' + p.x + '" y="147" text-anchor="middle">#' + p.no + '</text>'; });
+    return s + '</svg>';
+  }
+
+  /* ----- beranda ----- */
+  function statsHtml(st) {
+    var items = [
+      ['clip', st.n ? String(st.n) : '0', 'Ujian Selesai'],
+      ['target', st.avg === null ? '–' : fmtNum(st.avg), 'Rata-rata Nilai'],
+      ['trophy', st.max === null ? '–' : fmtNum(st.max), 'Nilai Tertinggi'],
+      ['star', st.last === null ? '–' : fmtNum(st.last), 'Nilai Terakhir']
+    ];
+    return '<div class="stats">' + items.map(function (it) {
+      return '<div class="glass stat">' + ic(it[0], 24) + '<b>' + it[1] + '</b><span>' + it[2] + '</span></div>';
+    }).join('') + '</div>';
+  }
+
+  function vBeranda() {
+    var h = getHist(), st = stats(h);
+    var jml = Math.min(D.pengaturan.ujianJumlahSoal, ALL.length), mnt = D.pengaturan.ujianMenit;
+    var html = '<h1 class="h1">Selamat Datang Kembali!</h1>' +
+      '<p class="lead">Berlatih, lalu uji pemahamanmu di ' + esc(D.mapel) + '.</p>';
+    if (aktif) {
+      html += '<section class="glass card" style="flex-direction:row;align-items:center;flex-wrap:wrap"><div style="flex:1 1 160px"><h3 class="h3">Ujian sedang berjalan</h3><span class="muted small">Waktu terus berjalan. Lanjutkan sebelum habis.</span></div><button type="button" class="btn btn-sm" data-act="go" data-v="ujian">Lanjutkan</button></section>';
+    }
+    html += statsHtml(st);
+    html += '<section class="card dark on-dark"><div class="eyebrow">Ujian Quiz</div>' +
+      '<div class="cta"><div class="grow"><div class="t">Uji pemahamanmu</div><div class="meta">' + jml + ' soal, ' + mnt + ' menit</div></div>' +
+      '<button type="button" class="btn btn-light" data-act="go" data-v="ujian">Mulai Ujian ' + ic('arrow', 16) + '</button></div></section>';
+    html += '<section class="glass card"><h2 class="h2"><span class="dot"></span>Perkembangan Nilai Ujian</h2>' + chart(h) + '</section>';
+    return html;
+  }
+
+  /* ----- latihan ----- */
+  function latBaru() { return { fase: 'awal', list: [], i: 0, ans: {}, b: 'semua', label: '' }; }
+
+  function latHitung() {
+    var dj = 0, bn = 0;
+    lat.list.forEach(function (id) {
+      var v = lat.ans[id];
+      if (v !== undefined) { dj++; if (v === Q[id].kunci) bn++; }
+    });
+    return { dj: dj, bn: bn };
+  }
+
+  function exTeks(ok, teks) {
+    return '<div class="ex ' + (ok ? 'ok' : 'bad') + '"><b>' + ic(ok ? 'check' : 'x', 16) + (ok ? 'Mengapa jawaban ini benar' : 'Mengapa jawaban ini salah') + '</b><p>' + esc(teks) + '</p></div>';
+  }
+
+  function vLatihan() {
+    if (lat.fase === 'awal') {
+      return '<h1 class="h1">Latihan Quiz</h1><p class="lead">Kerjakan seluruh soal dalam satu rangkaian. Setiap jawaban langsung dikoreksi dan dijelaskan, tanpa batas waktu.</p>' +
+        '<section class="glass card"><h2 class="h2"><span class="dot"></span>Cara Berlatih</h2><ol class="rules">' +
+        '<li>Bacalah setiap soal dengan teliti.</li>' +
+        '<li>Pilih satu jawaban yang paling tepat.</li>' +
+        '<li>Koreksi dan penjelasan langsung muncul setelah kamu memilih.</li>' +
+        '<li>Jawaban yang sudah dipilih tidak bisa diubah.</li>' +
+        '<li>Gunakan tombol Nomor untuk berpindah ke soal lain.</li>' +
+        '<li>Hasil latihan tidak disimpan di Progres.</li></ol>' +
+        '<button type="button" class="btn btn-block" data-act="lat-mulai">' + ic('pencil', 18) + 'Mulai Latihan (' + ALL.length + ' soal)</button></section>';
+    }
+    var n = lat.list.length, c = latHitung();
+    if (lat.fase === 'selesai') {
+      var pct = Math.round(c.bn / n * 1000) / 10;
+      return '<h1 class="h1">Latihan Selesai</h1>' +
+        '<section class="glass card"><div class="eyebrow" style="color:var(--ink-2)">' + esc(lat.label) + '</div><div class="score">' + c.bn + '<small> / ' + n + ' benar</small></div><p class="lead">Ketepatan ' + fmtNum(pct) + '%. Hasil latihan tidak disimpan di Progres.</p></section>' +
+        '<div class="row"><button type="button" class="btn" data-act="lat-ulang">Ulangi</button><button type="button" class="btn btn-ghost" data-act="lat-keluar">Kembali</button></div>';
+    }
+    var id = lat.list[lat.i], q = Q[id], pilih = lat.ans[id], done = pilih !== undefined, sisa = n - c.dj;
+    var h = '<div class="qhead"><span class="chip">Soal ' + (lat.i + 1) + ' dari ' + n + '</span>' +
+      '<button type="button" class="chip chip-btn" data-act="nav-buka" aria-haspopup="dialog" aria-label="Buka navigasi soal">' + ic('grid', 14) + 'Nomor</button>' +
+      '<button type="button" class="chip chip-btn chip-ico" data-act="calc-buka" aria-haspopup="dialog" aria-label="Buka kalkulator">' + ic('calc', 16) + '</button>' +
+      '<button type="button" class="btn btn-ghost btn-sm" style="margin-left:auto" data-act="lat-keluar">Keluar</button></div>';
+    h += '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + n + '" aria-valuenow="' + c.dj + '" aria-label="Kemajuan latihan"><i style="width:' + (c.dj / n * 100) + '%"></i></div>';
+    h += '<section class="glass card"><p class="qtext">' + esc(q.tanya) + '</p><div class="opts">';
+    q.opsi.forEach(function (o, k) {
+      var cls = '', tag = '', ex = '';
+      if (done) {
+        if (k === q.kunci) {
+          cls = ' ok'; tag = '<span class="tag">' + (pilih === k ? 'Jawabanmu benar' : 'Jawaban yang benar') + '</span>';
+          ex = exTeks(true, q.jelas);
+        } else if (k === pilih) {
+          cls = ' bad'; tag = '<span class="tag">Jawabanmu salah</span>';
+          ex = exTeks(false, (q.jelasOpsi && q.jelasOpsi[k]) || 'Pilihan ini kurang tepat. Lihat penjelasan pada jawaban yang benar.');
+        } else cls = ' dim';
+      }
+      h += '<div class="og"><button type="button" class="opt' + cls + '" data-act="lat-jawab" data-k="' + k + '"' + (done ? ' disabled' : '') + '><span class="lt">' + LET[k] + '</span><span class="tx"><span>' + esc(o) + '</span>' + tag + '</span></button>' + ex + '</div>';
+    });
+    h += '</div></section>';
+    h += '<div class="ctl"><button type="button" class="btn btn-ghost btn-step" data-act="lat-prev" aria-label="Soal sebelumnya"' + (lat.i === 0 ? ' disabled' : '') + '>' + ic('left', 22) + '</button>' +
+      '<button type="button" class="btn btn-ghost" data-act="lat-akhiri"' + (sisa > 0 ? ' disabled' : '') + '>Akhiri Latihan</button>' +
+      '<button type="button" class="btn btn-ghost btn-step" data-act="lat-next" aria-label="Soal berikutnya"' + (lat.i >= n - 1 ? ' disabled' : '') + '>' + ic('chev', 22) + '</button></div>';
+    if (sisa > 0) h += '<p class="note" style="text-align:center">Masih ada ' + sisa + ' soal yang belum dijawab.</p>';
+    return h;
+  }
+
+  function vLatNavPopup() {
+    var n = lat.list.length, c = latHitung();
+    var g = '<div class="nav-grid" role="group" aria-label="Nomor soal">';
+    lat.list.forEach(function (x, i) {
+      var v = lat.ans[x], d = v !== undefined, ok = d && v === Q[x].kunci;
+      g += '<button type="button" class="nb' + (d ? (ok ? ' done' : ' bad') : '') + (i === lat.i ? ' now' : '') + '" data-act="lat-ke" data-i="' + i + '" aria-label="Soal ' + (i + 1) + (d ? (ok ? ', dijawab benar' : ', dijawab salah') : ', belum dijawab') + '"' + (i === lat.i ? ' aria-current="true"' : '') + '><span class="n">' + (i + 1) + '</span></button>';
+    });
+    g += '</div>';
+    return '<div class="ov" data-act="nav-tutup"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="navt" data-act="noop">' +
+      '<div class="sheet-h"><h2 class="h2" id="navt">Navigasi Soal</h2><button type="button" class="iconbtn" data-act="nav-tutup" aria-label="Tutup navigasi soal">' + ic('x', 18) + '</button></div>' +
+      '<p class="note">Dijawab ' + c.dj + ' dari ' + n + '. Belum dijawab ' + (n - c.dj) + '. Benar ' + c.bn + '. Salah ' + (c.dj - c.bn) + '.</p>' +
+      g + '<button type="button" class="btn btn-block" data-act="nav-tutup">Tutup</button></div></div>';
+  }
+
+  function latMulai(b) {
+    var ids, label;
+    b = b || 'semua';
+    if (b === 'semua') { ids = ALL.slice(); label = 'Semua Soal'; }
+    else if (b === 'salah') {
+      var set = {};
+      analisis(getHist()).salah.forEach(function (s) { set[s.id] = true; });
+      ids = ALL.filter(function (id) { return set[id]; });
+      label = 'Soal yang sering salah';
+      if (!ids.length) { toast('Belum ada soal yang sering salah.'); return; }
+    } else if (BAB[b]) { ids = BAB[b].soal.map(function (s) { return s.id; }); label = BAB[b].judul; }
+    else return;
+    if (!ids.length) { toast('Belum ada soal.'); return; }
+    lat = { fase: 'jalan', list: ids, i: 0, ans: {}, b: b, label: label };
+    navOpen = false;
+    go('latihan');
+    render({ top: true });
+  }
+
+  /* ----- ujian ----- */
+  function ujianJumlah() { return Math.min(D.pengaturan.ujianJumlahSoal, ALL.length); }
+
+  function vUjian() {
+    if (aktif) return vUjianJalan();
+    if (ujHasil) return vUjianHasil();
+    var mnt = D.pengaturan.ujianMenit;
+    var h = getHist(), last = h.length ? h[h.length - 1] : null;
+    return '<h1 class="h1">Ujian Quiz</h1><p class="lead">Ujikan pemahamanmu tanpa petunjuk jawaban.</p>' +
+      '<section class="glass card"><h2 class="h2"><span class="dot"></span>Peraturan Pengerjaan Quiz</h2><ol class="rules">' +
+      '<li>Bacalah setiap soal dengan teliti.</li>' +
+      '<li>Pilih satu jawaban yang paling tepat.</li>' +
+      '<li>Setiap soal hanya memiliki satu jawaban benar.</li>' +
+      '<li>Waktu pengerjaan ' + mnt + ' menit.</li>' +
+      '<li>Periksa kembali jawaban sebelum menyelesaikan quiz.</li>' +
+      '<li>Hasil quiz ditampilkan setelah pengerjaan selesai.</li></ol>' +
+      '<button type="button" class="btn btn-block" data-act="uj-mulai">' + ic('clock', 18) + 'Mulai Ujian</button></section>' +
+      (last ? '<p class="note">Ujian terakhir: nilai ' + fmtNum(last.nilai) + ' (' + last.benar + ' benar, ' + last.salah + ' salah), ' + esc(fmtDate(last.tanggal)) + '.</p>' : '');
+  }
+
+  function navGrid(a) {
+    var h = '<div class="nav-grid" role="group" aria-label="Nomor soal">';
+    a.ids.forEach(function (x, i) {
+      var d = a.answers[x] !== undefined && a.answers[x] !== null, r = !!a.flags[x];
+      var huruf = d ? LET[a.answers[x]] : '';
+      h += '<button type="button" class="nb' + (d ? (r ? ' ragu' : ' done') : '') + (i === a.idx ? ' now' : '') + '" data-act="uj-ke" data-i="' + i + '" aria-label="Soal ' + (i + 1) + (d ? ', dijawab ' + huruf : ', belum dijawab') + (r ? ', ragu-ragu' : '') + '"' + (i === a.idx ? ' aria-current="true"' : '') + '><span class="n">' + (d ? huruf : (i + 1)) + '</span></button>';
+    });
+    return h + '</div>';
+  }
+
+  function vNavPopup() {
+    var a = aktif, n = a.ids.length, dj = 0, rg = 0;
+    a.ids.forEach(function (x) { if (a.answers[x] !== undefined && a.answers[x] !== null) dj++; if (a.flags[x]) rg++; });
+    return '<div class="ov" data-act="nav-tutup"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="navt" data-act="noop">' +
+      '<div class="sheet-h"><h2 class="h2" id="navt">Navigasi Soal</h2><button type="button" class="iconbtn" data-act="nav-tutup" aria-label="Tutup navigasi soal">' + ic('x', 18) + '</button></div>' +
+      '<p class="note">Dijawab ' + dj + ' dari ' + n + '. Belum dijawab ' + (n - dj) + '. Ragu-ragu ' + rg + '.</p>' +
+      navGrid(a) +
+      '<button type="button" class="btn btn-block" data-act="nav-tutup">Tutup</button></div></div>';
+  }
+
+  function vUjianJalan() {
+    var a = aktif, n = a.ids.length, id = a.ids[a.idx], q = Q[id];
+    var jawab = a.answers, terjawab = 0, ragu = 0;
+    a.ids.forEach(function (x) { if (jawab[x] !== undefined && jawab[x] !== null) terjawab++; if (a.flags[x]) ragu++; });
+    var sisa = n - terjawab, isRagu = !!a.flags[id];
+    var rem = Math.max(0, Math.ceil((a.endAt - Date.now()) / 1000));
+    var h = '<div class="qhead"><span class="chip">Soal ' + (a.idx + 1) + ' dari ' + n + '</span>' +
+      '<button type="button" class="chip chip-btn" data-act="nav-buka" aria-haspopup="dialog" aria-label="Buka navigasi soal">' + ic('grid', 14) + 'Nomor</button>' +
+      '<button type="button" class="chip chip-btn chip-ico" data-act="calc-buka" aria-haspopup="dialog" aria-label="Buka kalkulator">' + ic('calc', 16) + '</button>' +
+      '<span class="chip timer" id="timer" role="timer" aria-label="Sisa waktu" data-low="' + (rem < 60 ? 1 : 0) + '">' + fmtTime(rem) + '</span></div>';
+    h += '<section class="glass card"><p class="qtext">' + esc(q.tanya) + '</p><div class="opts">';
+    q.opsi.forEach(function (o, k) {
+      var sel = jawab[id] === k;
+      h += '<button type="button" class="opt' + (sel ? ' sel' : '') + '" data-act="uj-jawab" data-k="' + k + '" aria-pressed="' + (sel ? 'true' : 'false') + '"><span class="lt">' + LET[k] + '</span><span class="tx"><span>' + esc(o) + '</span></span></button>';
+    });
+    h += '</div></section>';
+    h += '<div class="ctl"><button type="button" class="btn btn-ghost btn-step" data-act="uj-prev" aria-label="Soal sebelumnya"' + (a.idx === 0 ? ' disabled' : '') + '>' + ic('left', 22) + '</button>' +
+      '<button type="button" class="btn btn-ghost btn-ragu" data-act="uj-ragu" aria-pressed="' + (isRagu ? 'true' : 'false') + '"' + (jawab[id] === undefined || jawab[id] === null ? ' disabled title="Pilih jawaban dulu"' : '') + '>' + ic('flag', 16) + 'Ragu-ragu</button>' +
+      '<button type="button" class="btn btn-ghost btn-step" data-act="uj-next" aria-label="Soal berikutnya"' + (a.idx >= n - 1 ? ' disabled' : '') + '>' + ic('chev', 22) + '</button></div>';
+    if (confirming && sisa === 0) {
+      h += '<div class="confirm"><p><b>Akhiri ujian sekarang?</b> Jawaban tidak bisa diubah setelahnya.' + (ragu ? ' Masih ada ' + ragu + ' soal ditandai ragu-ragu.' : '') + '</p><div class="row"><button type="button" class="btn" data-act="uj-ya">Ya, akhiri</button><button type="button" class="btn btn-ghost" data-act="uj-batal">Kembali</button></div></div>';
+    } else {
+      h += '<button type="button" class="btn btn-block" data-act="uj-akhiri"' + (sisa > 0 ? ' disabled' : '') + '>Akhiri Ujian</button>';
+      if (sisa > 0) h += '<p class="note" style="text-align:center">Masih ada ' + sisa + ' soal yang belum dijawab.</p>';
+      else if (ragu) h += '<p class="note" style="text-align:center">Ada ' + ragu + ' soal ditandai ragu-ragu. Buka Nomor untuk meninjau.</p>';
+    }
+    return h;
+  }
+
+  function vUjianHasil() {
+    var r = ujHasil;
+    return '<h1 class="h1">Hasil Ujian</h1>' +
+      '<section class="glass card"><div class="eyebrow" style="color:var(--ink-2)">Nilai</div><div class="score">' + fmtNum(r.nilai) + '<small> / 100</small></div>' +
+      '<p class="lead">' + (r.waktuHabis ? 'Waktu habis. Soal yang belum dijawab dihitung salah.' : 'Ujian diakhiri.') + ' Lama pengerjaan ' + fmtTime(r.durasi) + '.</p></section>' +
+      '<div class="two"><div class="glass"><b>' + r.benar + '</b><span>Jawaban benar</span></div><div class="glass"><b>' + r.salah + '</b><span>Jawaban salah</span></div></div>' +
+      '<p class="note">Hasil ini sudah tersimpan di menu Progres.</p>' +
+      '<div class="row"><button type="button" class="btn" data-act="go" data-v="progres">Lihat Progres</button><button type="button" class="btn btn-ghost" data-act="uj-ulang">Ujian lagi</button></div>';
+  }
+
+  function ujMulai() {
+    if (!ALL.length) { toast('Belum ada soal.'); return; }
+    var ids = shuffle(ALL).slice(0, ujianJumlah());
+    var now = Date.now();
+    aktif = { id: now.toString(36) + Math.random().toString(36).slice(2, 6), startAt: now, endAt: now + D.pengaturan.ujianMenit * 60000, ids: ids, answers: {}, flags: {}, idx: 0 };
+    ujHasil = null; confirming = false; navOpen = false;
+    saveAktif();
+    render({ top: true });
+  }
+
+  function finish(waktuHabis) {
+    if (!aktif) return;
+    var a = aktif, benar = 0, total = a.ids.length;
+    var detail = {};
+    a.ids.forEach(function (id) {
+      var jw = a.answers[id];
+      if (jw === undefined || jw === null) detail[id] = -1;
+      else if (jw === Q[id].kunci) { detail[id] = 1; benar++; }
+      else detail[id] = 0;
+    });
+    var end = Math.min(Date.now(), a.endAt);
+    var rec = {
+      id: a.id, tanggal: new Date(end).toISOString(), benar: benar, salah: total - benar, total: total,
+      nilai: Math.round(benar / total * 1000) / 10, durasi: Math.round((end - a.startAt) / 1000), waktuHabis: !!waktuHabis,
+      detail: detail
+    };
+    var h = getHist();
+    h.push(rec);
+    setHist(h);
+    aktif = null; sdel(K_AKTIF); confirming = false; ujHasil = rec;
+    if (view !== 'ujian') toast('Waktu ujian habis. Hasil sudah tersimpan di Progres.');
+    render({ top: true });
+  }
+
+  function tick() {
+    if (!aktif) return;
+    var rem = aktif.endAt - Date.now();
+    if (rem <= 0) { finish(true); return; }
+    var el = document.getElementById('timer');
+    if (el) {
+      var s = Math.ceil(rem / 1000);
+      el.textContent = fmtTime(s);
+      el.setAttribute('data-low', s < 60 ? '1' : '0');
+    }
+  }
+  setInterval(tick, 500);
+  document.addEventListener('visibilitychange', tick);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && (navOpen || calcOpen)) { var kal = calcOpen; navOpen = false; calcOpen = false; render(); var nb = document.querySelector(kal ? '[data-act="calc-buka"]' : '[data-act="nav-buka"]'); if (nb) nb.focus(); } });
+
+  /* ----- kalkulator ----- */
+  var OPSYM = { '+': '+', '-': '\u2212', '*': '\u00d7', '/': '\u00f7' };
+  function calcBaru() { return { cur: '0', acc: null, op: null, fresh: false, expr: '', err: false }; }
+  calc = calcBaru();
+  function cFmt(x) {
+    x = String(x);
+    if (/e/i.test(x)) return x.replace('.', ',');
+    var neg = x.charAt(0) === '-'; if (neg) x = x.slice(1);
+    var p = x.split('.'), ip = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return (neg ? '-' : '') + ip + (p.length > 1 ? ',' + p[1] : '');
+  }
+  function cHitung(a, o, b) {
+    var r = o === '+' ? a + b : o === '-' ? a - b : o === '*' ? a * b : (b === 0 ? NaN : a / b);
+    if (!isFinite(r)) return null;
+    return String(parseFloat(r.toPrecision(12)));
+  }
+  function cError() { calc = calcBaru(); calc.err = true; }
+  function cTekan(k) {
+    if (calc.err && k !== 'C') calc = calcBaru();
+    var c = calc, r;
+    if (k.length === 1 && k >= '0' && k <= '9') {
+      if (c.fresh) { c.cur = k; c.fresh = false; }
+      else if (c.cur.replace(/[-.]/g, '').length < 15) c.cur = c.cur === '0' ? k : (c.cur === '-0' ? '-' + k : c.cur + k);
+    } else if (k === '.') {
+      if (c.fresh) { c.cur = '0.'; c.fresh = false; }
+      else if (c.cur.indexOf('.') < 0) c.cur += '.';
+    } else if (k === 'C') {
+      calc = calcBaru();
+    } else if (k === 'B') {
+      if (!c.fresh) c.cur = (c.cur.length > 1 && !(c.cur.length === 2 && c.cur.charAt(0) === '-')) ? c.cur.slice(0, -1) : '0';
+    } else if (k === 'N') {
+      if (c.cur !== '0' && c.cur !== '0.') c.cur = c.cur.charAt(0) === '-' ? c.cur.slice(1) : '-' + c.cur;
+    } else if (k === '%') {
+      c.cur = String(parseFloat((parseFloat(c.cur) / 100).toPrecision(12))); c.fresh = true;
+    } else if (OPSYM[k]) {
+      if (c.op && c.acc !== null && !c.fresh) {
+        r = cHitung(c.acc, c.op, parseFloat(c.cur));
+        if (r === null) { cError(); return; }
+        c.acc = parseFloat(r); c.cur = r;
+      } else c.acc = parseFloat(c.cur);
+      c.op = k; c.fresh = true; c.expr = cFmt(c.cur) + ' ' + OPSYM[k];
+    } else if (k === '=') {
+      if (c.op && c.acc !== null) {
+        var b = c.fresh ? c.acc : parseFloat(c.cur);
+        r = cHitung(c.acc, c.op, b);
+        if (r === null) { cError(); return; }
+        c.expr = cFmt(c.acc) + ' ' + OPSYM[c.op] + ' ' + cFmt(b) + ' =';
+        c.cur = r; c.acc = null; c.op = null; c.fresh = true;
+      }
+    }
+  }
+  function calcTeks() { return calc.err ? 'Tidak valid' : cFmt(calc.cur); }
+  function calcUkuran(t) { return t.length > 14 ? 22 : (t.length > 10 ? 28 : 36); }
+  function calcUpdate() {
+    var d = document.getElementById('calcd'), e = document.getElementById('calce');
+    if (!d || !e) return;
+    var t = calcTeks();
+    d.textContent = t; d.style.fontSize = calcUkuran(t) + 'px';
+    e.textContent = calc.expr || '\u00a0';
+  }
+  function vCalcPopup() {
+    var K = [
+      ['C', 'C', 'fn', 'Hapus semua'], ['B', ic('bksp', 22), 'fn', 'Hapus satu angka'], ['%', '%', 'fn', 'Persen'], ['/', '\u00f7', 'op', 'Bagi'],
+      ['7', '7'], ['8', '8'], ['9', '9'], ['*', '\u00d7', 'op', 'Kali'],
+      ['4', '4'], ['5', '5'], ['6', '6'], ['-', '\u2212', 'op', 'Kurang'],
+      ['1', '1'], ['2', '2'], ['3', '3'], ['+', '+', 'op', 'Tambah'],
+      ['N', '\u00b1', 'fn', 'Ubah positif atau negatif'], ['0', '0'], ['.', ',', '', 'Koma desimal'], ['=', '=', 'op', 'Sama dengan']
+    ];
+    var t = calcTeks();
+    return '<div class="ov" data-act="calc-tutup"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="calct" data-act="noop">' +
+      '<div class="sheet-h"><h2 class="h2" id="calct">Kalkulator</h2><button type="button" class="iconbtn" data-act="calc-tutup" aria-label="Tutup kalkulator">' + ic('x', 18) + '</button></div>' +
+      '<div class="cdisp"><div class="ce" id="calce">' + (calc.expr ? esc(calc.expr) : '&nbsp;') + '</div><div class="cd" id="calcd" style="font-size:' + calcUkuran(t) + 'px">' + esc(t) + '</div></div>' +
+      '<div class="ckeys">' + K.map(function (x) {
+        return '<button type="button" class="ck' + (x[2] ? ' ' + x[2] : '') + '" data-act="calc-key" data-k="' + x[0] + '"' + (x[3] ? ' aria-label="' + x[3] + '"' : '') + '>' + x[1] + '</button>';
+      }).join('') + '</div></div></div>';
+  }
+
+  /* ----- progres ----- */
+  function vProgres() {
+    var h = getHist(), st = stats(h);
+    var html = '<h1 class="h1">Progres Ujian</h1><p class="lead">Riwayat nilai dari ujian quiz yang sudah kamu selesaikan.</p>' + statsHtml(st);
+    html += '<section class="glass card"><h2 class="h2"><span class="dot"></span>Perkembangan Nilai</h2>' + chart(h) + '</section>';
+    html += vPenguasaan(h, analisis(h));
+    html += '<section class="glass card"><h2 class="h2"><span class="dot"></span>Riwayat</h2>';
+    if (!h.length) html += '<p class="empty">Belum ada riwayat ujian.</p>';
+    else {
+      html += '<ul class="hist">';
+      h.slice().reverse().forEach(function (r) {
+        html += '<li><div class="hn"><b>' + esc(fmtDate(r.tanggal)) + '</b><span>' + r.benar + ' benar, ' + r.salah + ' salah' + (r.waktuHabis ? ', waktu habis' : '') + '</span></div><span class="nv">' + fmtNum(r.nilai) + '</span></li>';
+      });
+      html += '</ul>';
+    }
+    html += '</section>';
+    html += '<section class="glass card"><h2 class="h2"><span class="dot"></span>Cadangan riwayat</h2>' +
+      '<p class="lead">Riwayat tersimpan di browser ini saja. Simpan cadangan agar tidak hilang saat data browser dihapus atau saat berganti HP.</p>' +
+      '<div class="row"><button type="button" class="btn btn-ghost" data-act="pr-salin"' + (h.length ? '' : ' disabled') + '>Salin cadangan</button>' +
+      (window.QL_CAN_DOWNLOAD ? '<button type="button" class="btn btn-ghost" data-act="pr-unduh"' + (h.length ? '' : ' disabled') + '>Unduh file</button>' : '') + '</div>';
+    if (cadangan) html += '<label for="cad" class="note">Salin teks berikut secara manual:</label><textarea id="cad" readonly>' + esc(cadangan) + '</textarea>';
+    html += '<label for="imp" class="note">Pulihkan dari cadangan: tempel teks cadangan atau pilih file.</label>' +
+      '<textarea id="imp" placeholder="Tempel teks cadangan di sini"></textarea>' +
+      '<div class="row"><button type="button" class="btn btn-sm" data-act="pr-pulihkan">Pulihkan</button>' +
+      '<span class="btn btn-ghost btn-sm filebtn">Pilih file cadangan<input type="file" id="impFile" accept=".json,application/json,text/plain" aria-label="Pilih file cadangan"></span></div></section>';
+    if (h.length) {
+      if (hapusConfirm) html += '<div class="confirm"><p><b>Hapus semua riwayat ujian?</b> Tindakan ini tidak bisa dibatalkan.</p><div class="row"><button type="button" class="btn" data-act="pr-hapus-ya">Ya, hapus</button><button type="button" class="btn btn-ghost" data-act="pr-hapus-batal">Batal</button></div></div>';
+      else html += '<button type="button" class="btn btn-ghost btn-block" data-act="pr-hapus">Hapus semua riwayat</button>';
+    }
+    return html;
+  }
+
+  function soalItem(s, tipe) {
+    var q = Q[s.id], n = s.benar + s.salah;
+    var info = tipe === 'salah' ? 'Salah ' + s.salah + ' dari ' + n + ' kali' : 'Benar ' + s.benar + ' dari ' + n + ' kali';
+    return '<li><div class="qt">' + esc(q.tanya) + '</div><div class="qm"><span class="chip">' + esc(q.babJudul.split('.')[0]) + '</span><span class="small muted">' + info + '</span></div></li>';
+  }
+  function daftarSoal(judul, list, tipe, kosong) {
+    var html = '<section class="glass card"><h2 class="h2"><span class="dot"></span>' + judul + '</h2>';
+    if (!list.length) return html + '<p class="empty">' + kosong + '</p></section>';
+    html += '<ul class="qlist">' + list.slice(0, 10).map(function (s) { return soalItem(s, tipe); }).join('') + '</ul>';
+    if (list.length > 10) html += '<p class="note">Dan ' + (list.length - 10) + ' soal lainnya.</p>';
+    if (tipe === 'salah') html += '<button type="button" class="btn btn-block" data-act="lat-mulai" data-b="salah">' + ic('pencil', 18) + 'Latih soal-soal ini</button>';
+    return html + '</section>';
+  }
+  function vPenguasaan(h, an) {
+    var html = '<section class="glass card"><h2 class="h2"><span class="dot"></span>Penguasaan per Bab</h2>';
+    if (!h.length) return html + '<p class="empty">Selesaikan satu ujian untuk melihat bab yang sudah dan belum kamu kuasai.</p></section>';
+    if (!an.ada) return html + '<p class="empty">Ujian sebelumnya belum mencatat hasil per soal. Analisis muncul setelah ujian berikutnya selesai.</p></section>';
+    html += '<ul class="mast">';
+    an.bab.forEach(function (x) {
+      var teks = !x.n ? 'Belum ada jawaban' : (x.n < MIN_BAB ? 'Baru ' + x.n + ' jawaban (minimal ' + MIN_BAB + ' agar dinilai)' : x.n + ' jawaban, ' + x.pct + '% benar');
+      html += '<li class="mrow"><div class="mtop"><span class="mt">' + esc(x.b.judul) + '</span><span class="pill pill-' + x.st.k + '">' + x.st.t + '</span></div>' +
+        '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + x.pct + '" aria-label="Persentase benar ' + esc(x.b.judul) + '"><i style="width:' + x.pct + '%"></i></div>' +
+        '<div class="mbot"><span class="small muted">' + teks + '</span><button type="button" class="btn btn-ghost btn-sm" data-act="lat-mulai" data-b="' + x.b.id + '">Latih</button></div></li>';
+    });
+    html += '</ul><p class="note">Dihitung dari semua jawaban di riwayat ujian. Dikuasai mulai ' + BATAS_KUASAI + '% benar, Cukup mulai ' + BATAS_CUKUP + '%. Soal yang tidak sempat dijawab karena waktu habis tidak ikut dihitung.</p></section>';
+    html += daftarSoal('Soal yang Sering Salah', an.salah, 'salah', 'Belum ada soal yang sering salah. Soal baru dinilai setelah dijawab minimal ' + MIN_SOAL + ' kali.');
+    html += daftarSoal('Soal yang Selalu Benar', an.benar, 'benar', 'Belum ada soal yang dijawab benar terus. Soal baru dinilai setelah dijawab minimal ' + MIN_SOAL + ' kali.');
+    return html;
+  }
+
+  function cadanganJson() {
+    return JSON.stringify({ app: 'quizlearn', versi: 2, diekspor: new Date().toISOString(), riwayat: getHist() });
+  }
+  function pulihkan(text) {
+    var obj = parse((text || '').trim(), null);
+    var arr = Array.isArray(obj) ? obj : (obj && Array.isArray(obj.riwayat) ? obj.riwayat : null);
+    if (!arr) { toast('Teks cadangan tidak dikenali. Pastikan disalin utuh.'); return; }
+    var valid = arr.filter(validRec).map(cleanRec);
+    if (!valid.length) { toast('Tidak ada riwayat yang valid di cadangan ini.'); return; }
+    var h = getHist(), ada = {}, tambah = 0;
+    h.forEach(function (r) { ada[r.id] = true; });
+    valid.forEach(function (r) { if (!ada[r.id]) { ada[r.id] = true; h.push(r); tambah++; } });
+    h.sort(function (a, b) { return new Date(a.tanggal) - new Date(b.tanggal); });
+    setHist(h);
+    toast(tambah + ' riwayat berhasil dipulihkan.');
+    render();
+  }
+
+  /* ---------- aksi ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-act]') : null;
+    if (!t || t.disabled) return;
+    var act = t.getAttribute('data-act');
+    var a = aktif;
+
+    if (act === 'noop') return;
+    if (act === 'go') { go(t.getAttribute('data-v')); return; }
+
+    if (act === 'lat-mulai') { latMulai(t.getAttribute('data-b')); return; }
+    if (act === 'lat-jawab') {
+      var lid = lat.list[lat.i];
+      if (lat.fase !== 'jalan' || lat.ans[lid] !== undefined) return;
+      lat.ans[lid] = parseInt(t.getAttribute('data-k'), 10);
+      render(); return;
+    }
+    if (act === 'lat-prev') { if (lat.i > 0) lat.i--; render({ top: true }); return; }
+    if (act === 'lat-next') { if (lat.i < lat.list.length - 1) lat.i++; render({ top: true }); return; }
+    if (act === 'lat-ke') { lat.i = parseInt(t.getAttribute('data-i'), 10); navOpen = false; render({ top: true }); return; }
+    if (act === 'lat-akhiri') { if (latHitung().dj >= lat.list.length) { lat.fase = 'selesai'; navOpen = false; render({ top: true }); } return; }
+    if (act === 'lat-ulang') { latMulai(lat.b); return; }
+    if (act === 'lat-keluar') { lat = latBaru(); navOpen = false; render({ top: true }); return; }
+
+    if (act === 'uj-mulai') { ujMulai(); return; }
+    if (act === 'uj-ulang') { ujHasil = null; render({ top: true }); return; }
+    if (!a && act.indexOf('uj-') === 0) return;
+    if (act === 'uj-jawab') { a.answers[a.ids[a.idx]] = parseInt(t.getAttribute('data-k'), 10); confirming = false; saveAktif(); render(); return; }
+    if (act === 'uj-ke') { a.idx = parseInt(t.getAttribute('data-i'), 10); confirming = false; navOpen = false; saveAktif(); render({ top: true }); return; }
+    if (act === 'uj-ragu') { var rid = a.ids[a.idx]; if (a.answers[rid] === undefined || a.answers[rid] === null) return; if (a.flags[rid]) delete a.flags[rid]; else a.flags[rid] = true; saveAktif(); render(); return; }
+    if (act === 'calc-buka') { calcOpen = true; navOpen = false; render(); var kb = $ov.querySelector('.iconbtn'); if (kb) kb.focus(); return; }
+    if (act === 'calc-tutup') { calcOpen = false; render(); var kc = document.querySelector('[data-act="calc-buka"]'); if (kc) kc.focus(); return; }
+    if (act === 'calc-key') { cTekan(t.getAttribute('data-k')); calcUpdate(); return; }
+    if (act === 'nav-buka') { navOpen = true; calcOpen = false; render(); var cb = $ov.querySelector('.iconbtn'); if (cb) cb.focus(); return; }
+    if (act === 'nav-tutup') { navOpen = false; render(); var nb = document.querySelector('[data-act="nav-buka"]'); if (nb) nb.focus(); return; }
+    if (act === 'uj-prev') { if (a.idx > 0) a.idx--; confirming = false; saveAktif(); render({ top: true }); return; }
+    if (act === 'uj-next') { if (a.idx < a.ids.length - 1) a.idx++; confirming = false; saveAktif(); render({ top: true }); return; }
+    if (act === 'uj-akhiri') { confirming = true; render(); return; }
+    if (act === 'uj-batal') { confirming = false; render(); return; }
+    if (act === 'uj-ya') { finish(false); return; }
+
+    if (act === 'pr-salin') {
+      var json = cadanganJson();
+      var fallback = function () { cadangan = json; render(); toast('Salin teks cadangan secara manual dari kotak di bawah.'); };
+      try {
+        navigator.clipboard.writeText(json).then(function () { cadangan = null; toast('Cadangan disalin. Tempel dan simpan di catatan atau pesan ke diri sendiri.'); }, fallback);
+      } catch (err) { fallback(); }
+      return;
+    }
+    if (act === 'pr-unduh') {
+      try {
+        var blob = new Blob([cadanganJson()], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = url; link.download = 'cadangan-quizlearn.json';
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+        toast('File cadangan diunduh.');
+      } catch (err) { toast('Unduh gagal. Gunakan tombol Salin cadangan.'); }
+      return;
+    }
+    if (act === 'pr-pulihkan') { var ta = document.getElementById('imp'); pulihkan(ta ? ta.value : ''); return; }
+    if (act === 'pr-hapus') { hapusConfirm = true; render(); return; }
+    if (act === 'pr-hapus-batal') { hapusConfirm = false; render(); return; }
+    if (act === 'pr-hapus-ya') { setHist([]); hapusConfirm = false; ujHasil = null; toast('Riwayat dihapus.'); render(); return; }
+  });
+
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'impFile' && e.target.files && e.target.files[0]) {
+      var rd = new FileReader();
+      rd.onload = function () { pulihkan(String(rd.result || '')); };
+      rd.onerror = function () { toast('File tidak bisa dibaca.'); };
+      rd.readAsText(e.target.files[0]);
+    }
+  });
+
+  /* ---------- layar sambutan ---------- */
+  function welcome() {
+    var el = document.createElement('div');
+    el.id = 'welcome'; el.className = 'wel'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-labelledby', 'welt');
+    el.innerHTML = '<div class="wel-blur"></div><div class="wel-body"><div class="logo" aria-hidden="true">' + ic('bolt', 22) + '</div><h1 class="wel-t" id="welt">Are you ready?</h1><button type="button" class="btn wel-btn" id="welbtn">I am ready!</button></div>';
+    document.body.appendChild(el);
+    var inertEls = [document.querySelector('.app'), document.getElementById('dock')];
+    inertEls.forEach(function (x) { if (x) x.setAttribute('inert', ''); });
+    document.body.style.overflow = 'hidden';
+    var btn = document.getElementById('welbtn'), blur = el.querySelector('.wel-blur'), body = el.querySelector('.wel-body');
+    btn.focus();
+    var busy = false;
+    function selesai() {
+      if (el.parentNode) el.parentNode.removeChild(el);
+      inertEls.forEach(function (x) { if (x) x.removeAttribute('inert'); });
+      document.body.style.overflow = navOpen ? 'hidden' : '';
+      try { $main.focus({ preventScroll: true }); } catch (e) {}
+    }
+    btn.addEventListener('click', function () {
+      if (busy) return; busy = true;
+      var r = btn.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      var W = window.innerWidth, H = window.innerHeight;
+      var dx = Math.max(cx, W - cx), dy = Math.max(cy, H - cy);
+      var soft = 160, total = Math.sqrt(dx * dx + dy * dy) + soft;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      body.classList.add('out');
+      if (reduce || !window.requestAnimationFrame) { el.classList.add('fade'); setTimeout(selesai, 260); return; }
+      var dur = 1100, t0 = null;
+      function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+      function frame(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur), R = ease(p) * total;
+        var s = Math.min(soft, R);
+        var m = 'radial-gradient(circle at ' + cx + 'px ' + cy + 'px, transparent ' + R + 'px, #000 ' + (R + s) + 'px)';
+        blur.style.webkitMaskImage = m; blur.style.maskImage = m;
+        if (p < 1) requestAnimationFrame(frame); else selesai();
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
+  /* ---------- mulai ---------- */
+  if (aktif && aktif.endAt <= Date.now()) {
+    finish(true);
+    toast('Waktu ujian sebelumnya sudah habis. Hasil tersimpan di Progres.');
+  } else {
+    render();
+  }
+  if (!aktif) welcome();   // ujian yang sedang berjalan tidak ditunda oleh layar sambutan
+})();
+
+</script>
+
+</body></html>
